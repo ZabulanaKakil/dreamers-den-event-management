@@ -1,6 +1,6 @@
 # Dreamers Den — Event Management
 
-Static website for the Event Management sub-brand of Dreamers Den. HTML, CSS, and light JavaScript — no build step required.
+Event Management sub-site for Dreamers Den — static HTML, CSS, and light JavaScript (no build step required).
 
 ## Pages
 
@@ -44,10 +44,10 @@ Edit **[js/config.js](js/config.js)** for most content changes:
 
 ## GitHub Pages
 
-1. Create a GitHub repository and push this folder.
+1. Push this repository to GitHub.
 2. On GitHub: **Settings → Pages → Build and deployment**
 3. Source: **Deploy from a branch** → `main` → `/ (root)`
-4. Save. Site will be at `https://<username>.github.io/<repo-name>/`
+4. Save. Site will be at `https://zabulanakakil.github.io/dreamers-den-event-management/`
 5. Link from your main Dreamers Den site to that URL.
 
 Optional: add a `.nojekyll` file (already included) if you use paths GitHub might mis-process.
