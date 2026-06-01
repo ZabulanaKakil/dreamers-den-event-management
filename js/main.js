@@ -74,7 +74,7 @@
 
   function renderServices() {
     const grid = document.getElementById("services-grid");
-    if (!grid || !config.services?.length) return;
+    if (!grid || grid.dataset.static === "true" || !config.services?.length) return;
 
     grid.innerHTML = config.services
       .map(
@@ -94,7 +94,12 @@
       )
       .join("");
 
-    grid.querySelectorAll(".read-more").forEach((btn) => {
+    initServiceReadMore(grid);
+  }
+
+  function initServiceReadMore(root) {
+    if (!root) return;
+    root.querySelectorAll(".read-more").forEach((btn) => {
       btn.addEventListener("click", () => {
         const card = btn.closest(".service-card");
         const expanded = card.classList.toggle("is-expanded");
@@ -174,7 +179,7 @@
 
   function initPartnerTeaser() {
     const el = document.getElementById("partner-teaser");
-    if (!el || !config.partners?.length) return;
+    if (!el || el.dataset.static === "true" || !config.partners?.length) return;
     el.innerHTML = config.partners
       .slice(0, 4)
       .map((p) => `<span>${escapeHtml(p.name)}</span>`)
@@ -187,6 +192,7 @@
     setActiveNav();
     initReveal();
     renderServices();
+    initServiceReadMore(document.getElementById("services-grid"));
     renderPartners();
     renderTimeline();
     renderContact();

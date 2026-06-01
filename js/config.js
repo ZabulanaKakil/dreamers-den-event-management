@@ -31,70 +31,70 @@ window.SITE_CONFIG = {
       name: "Sound System",
       description:
         "Professional audio setup for events of any scale — clear sound for speeches, music, and performances.",
-      image: "assets/images/services/sound-system.svg",
+      image: "assets/images/services/sound-system.jpg",
     },
     {
       id: "led",
       name: "LED",
       description:
         "Dynamic LED displays and screens to engage your audience and elevate your stage presence.",
-      image: "assets/images/services/led.svg",
+      image: "assets/images/services/led.jpg",
     },
     {
       id: "branding",
       name: "Branding",
       description:
         "Cohesive visual identity across your event — logos, colours, and branded touchpoints.",
-      image: "assets/images/services/branding.svg",
+      image: "assets/images/services/branding.jpg",
     },
     {
       id: "banner",
       name: "Banner / Advertisement",
       description:
         "Eye-catching banners and promotional materials tailored to your event and venue.",
-      image: "assets/images/services/banner.svg",
+      image: "assets/images/services/banner.jpg",
     },
     {
       id: "stage-decoration",
       name: "Stage Decoration",
       description:
         "Transform your stage with creative décor that matches your theme and wows your guests.",
-      image: "assets/images/services/stage-decoration.svg",
+      image: "assets/images/services/stage-decoration.jpg",
     },
     {
       id: "lighting",
       name: "Lighting",
       description:
         "Atmospheric and functional lighting design to set the mood and highlight key moments.",
-      image: "assets/images/services/lighting.svg",
+      image: "assets/images/services/lighting.jpg",
     },
     {
       id: "documentary",
       name: "Documentary",
       description:
         "Capture the story of your event with professional documentary-style coverage.",
-      image: "assets/images/services/documentary.svg",
+      image: "assets/images/services/documentary.jpg",
     },
     {
       id: "videography",
       name: "Videography",
       description:
         "High-quality video production — from highlights to full event recordings.",
-      image: "assets/images/services/videography.svg",
+      image: "assets/images/services/videography.jpg",
     },
     {
       id: "furnishments",
       name: "Furnishments",
       description:
         "Furniture and fittings arranged for comfort, style, and flow at your venue.",
-      image: "assets/images/services/furnishments.svg",
+      image: "assets/images/services/furnishments.jpg",
     },
     {
       id: "layouts",
       name: "Presentation & Design of Layouts",
       description:
         "Floor plans and spatial design so every guest enjoys the best experience.",
-      image: "assets/images/services/layouts.svg",
+      image: "assets/images/services/layouts.jpg",
     },
   ],
 
