@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Our event services — sound, LED, branding, staging, lighting, video, furnishings, and layout design.">
+  <title>Our Services — Dreamers Den Event Management</title>
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="assets/images/logo.png" alt="Dreamers Den logo" class="logo-img" width="48" height="48">
+        <span class="logo-text">
+          <span class="logo-title">Dreamers Den</span>
+          <span class="logo-subtitle">Event Management</span>
+        </span>
+      </a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">&#9776;</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Our Services</a></li>
+          <li><a href="partners.html">Our Partners</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <h1>Our Services</h1>
+          <p>Everything you need for a successful event — from technical production to creative presentation.</p>
+        </div>
+
+        <div id="services-grid" class="services-grid" aria-live="polite"></div>
+
+        <div class="cta-strip reveal">
+          <h2>Need a custom package?</h2>
+          <p>Select the services you want in our inquiry form and we will tailor a proposal for you.</p>
+          <a href="#" class="btn btn-primary" data-form-url target="_blank" rel="noopener noreferrer">Submit your requirements</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <strong>Dreamers Den — Event Management</strong>
+          <p data-tagline>Quality in time</p>
+          <p><a id="main-site-link" href="#">Back to Dreamers Den main site</a></p>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="partners.html">Partners</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div class="footer-cta">
+        <a href="#" class="btn btn-primary" data-form-url target="_blank" rel="noopener noreferrer">Place an order / Request a quote</a>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Dreamers Den Event Management. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

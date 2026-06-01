@@ -1,0 +1,30 @@
+:root {
+  --color-bg: #0a0a0a;
+  --color-bg-elevated: #141414;
+  --color-bg-card: #1a1a1a;
+  --color-surface: #ffffff;
+  --color-text: #f0f0f0;
+  --color-text-muted: #a3a3a3;
+  --color-text-dark: #1a1a1a;
+
+  --color-primary: #007bff;
+  --color-primary-dark: #0056b3;
+  --color-primary-glow: #339dff;
+  --gradient-brand: linear-gradient(135deg, #001f3f 0%, #007bff 50%, #339dff 100%);
+
+  --font-heading: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-body: "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-icon: 16px;
+
+  --shadow-card: 0 4px 24px rgba(0, 123, 255, 0.08);
+  --shadow-hover: 0 8px 32px rgba(0, 123, 255, 0.15);
+
+  --header-height: 72px;
+  --max-width: 1200px;
+  --section-gap: 5rem;
+  --transition: 0.25s ease;
+}

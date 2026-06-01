@@ -1,0 +1,5 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" aria-hidden="true">
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#001f3f"/><stop offset="50%" stop-color="#007bff"/><stop offset="100%" stop-color="#339dff"/></linearGradient></defs>
+  <rect width="400" height="250" fill="url(#g)"/>
+  <text x="200" y="135" text-anchor="middle" fill="#fff" font-family="Segoe UI,sans-serif" font-size="28" font-weight="600">branding</text>
+</svg>

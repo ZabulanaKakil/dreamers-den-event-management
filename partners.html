@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Our partners — venues, vendors, and collaborators who help us deliver outstanding events.">
+  <title>Our Partners — Dreamers Den Event Management</title>
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="assets/images/logo.png" alt="Dreamers Den logo" class="logo-img" width="48" height="48">
+        <span class="logo-text">
+          <span class="logo-title">Dreamers Den</span>
+          <span class="logo-subtitle">Event Management</span>
+        </span>
+      </a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">&#9776;</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Our Services</a></li>
+          <li><a href="partners.html">Our Partners</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <h1>Our Partners</h1>
+          <p>We are proud to collaborate with trusted partners. Replace placeholders with real names and logos in <code>js/config.js</code> and <code>assets/images/partners/</code>.</p>
+        </div>
+
+        <div id="partners-grid" class="partners-grid" aria-live="polite"></div>
+
+        <div class="cta-strip reveal">
+          <h2>Interested in partnering with us?</h2>
+          <p>Get in touch — we are always open to meaningful collaborations.</p>
+          <a href="contact.html" class="btn btn-primary">Contact us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <strong>Dreamers Den — Event Management</strong>
+          <p data-tagline>Quality in time</p>
+          <p><a id="main-site-link" href="#">Back to Dreamers Den main site</a></p>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="partners.html">Partners</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div class="footer-cta">
+        <a href="#" class="btn btn-primary" data-form-url target="_blank" rel="noopener noreferrer">Place an order / Request a quote</a>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Dreamers Den Event Management. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

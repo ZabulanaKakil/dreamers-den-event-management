@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Dreamers Den Event Management — email, phone, and inquiry form for quotes and orders.">
+  <title>Contact Us — Dreamers Den Event Management</title>
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="assets/images/logo.png" alt="Dreamers Den logo" class="logo-img" width="48" height="48">
+        <span class="logo-text">
+          <span class="logo-title">Dreamers Den</span>
+          <span class="logo-subtitle">Event Management</span>
+        </span>
+      </a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">&#9776;</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Our Services</a></li>
+          <li><a href="partners.html">Our Partners</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <h1>Contact Us</h1>
+          <p>Reach out directly or submit your event requirements through our form.</p>
+        </div>
+
+        <div class="contact-grid reveal">
+          <article class="card contact-card">
+            <div class="contact-icon" aria-hidden="true">&#9993;</div>
+            <h3>Email</h3>
+            <p><a id="contact-email" href="mailto:contact@dreamersden.com">contact@dreamersden.com</a></p>
+          </article>
+          <article class="card contact-card">
+            <div class="contact-icon" aria-hidden="true">&#9742;</div>
+            <h3>Phone</h3>
+            <p><a id="contact-phone" href="tel:">+977 — — — — — —</a></p>
+          </article>
+          <article class="card contact-card">
+            <div class="contact-icon" aria-hidden="true">&#128205;</div>
+            <h3>Location</h3>
+            <p id="contact-address">Kathmandu, Nepal</p>
+          </article>
+          <article class="card contact-card">
+            <div class="contact-icon" aria-hidden="true">&#128339;</div>
+            <h3>Hours</h3>
+            <p id="contact-hours">Sun – Fri, 10:00 – 18:00</p>
+          </article>
+        </div>
+
+        <div class="contact-grid reveal" style="margin-bottom: 0;">
+          <article class="card contact-card">
+            <h3>Social</h3>
+            <p>
+              <a id="social-facebook" href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+              &nbsp;&middot;&nbsp;
+              <a id="social-instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </p>
+          </article>
+        </div>
+
+        <div class="form-section reveal" style="margin-top: 3rem;">
+          <h2>Place an order / Tell us what you need</h2>
+          <p>
+            For quotes and purchase requests, please complete our Google Form with your event details, preferred services, and contact information.
+          </p>
+          <div class="form-actions">
+            <a href="#" class="btn btn-primary" data-form-url target="_blank" rel="noopener noreferrer">Open form in new tab</a>
+            <a href="services.html" class="btn btn-outline">View our services first</a>
+          </div>
+          <div class="form-embed-wrap" style="margin-top: 2rem;">
+            <iframe
+              id="google-form-embed"
+              title="Dreamers Den Event Management inquiry form"
+              src=""
+              loading="lazy"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <strong>Dreamers Den — Event Management</strong>
+          <p data-tagline>Quality in time</p>
+          <p><a id="main-site-link" href="#">Back to Dreamers Den main site</a></p>
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="partners.html">Partners</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div class="footer-cta">
+        <a href="#" class="btn btn-primary" data-form-url target="_blank" rel="noopener noreferrer">Place an order / Request a quote</a>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Dreamers Den Event Management. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
