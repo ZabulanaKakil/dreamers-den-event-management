@@ -42,27 +42,76 @@
           <p>Reach out directly or submit your event requirements through our form.</p>
         </div>
 
-        <div class="contact-grid reveal">
-          <article class="card contact-card">
-            <div class="contact-icon" aria-hidden="true">&#9993;</div>
-            <h3>Email</h3>
-            <p><a id="contact-email" href="mailto:mail@mail.com">mail@mail.com</a></p>
+        <div class="contact-layout reveal" data-contact-static>
+          <article class="card contact-card contact-card--phones">
+            <header class="contact-card-header">
+              <div class="contact-icon" aria-hidden="true">&#9742;</div>
+              <div>
+                <h3>Phone &amp; WhatsApp</h3>
+                <p class="contact-card-lead">Call or message our leadership team directly.</p>
+              </div>
+            </header>
+            <ul class="contact-phone-list">
+              <li class="contact-person">
+                <div class="contact-person-head">
+                  <span class="contact-phone-name">Mr. Zahid Hasan Shumon</span>
+                  <span class="contact-phone-role">Director</span>
+                </div>
+                <div class="contact-person-channels">
+                  <a class="contact-channel-link contact-channel-link--call" href="tel:+8801775313689" aria-label="Call Mr. Zahid Hasan Shumon, +8801775313689">
+                    <span class="contact-channel-label">Call</span>
+                    <span class="contact-phone-number">+880 1775 313689</span>
+                    <span class="contact-action-hint">Tap to call</span>
+                  </a>
+                  <a class="contact-channel-link contact-channel-link--whatsapp" href="https://wa.me/8801775313689" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Mr. Zahid Hasan Shumon, +8801775313689">
+                    <span class="contact-channel-label">WhatsApp</span>
+                    <span class="contact-phone-number">+880 1775 313689</span>
+                    <span class="contact-action-hint">Tap to message</span>
+                  </a>
+                </div>
+              </li>
+              <li class="contact-person">
+                <div class="contact-person-head">
+                  <span class="contact-phone-name">Captain Tanvir Nahian <span class="contact-phone-note">(retired)</span></span>
+                  <span class="contact-phone-role">General Manager</span>
+                </div>
+                <div class="contact-person-channels">
+                  <a class="contact-channel-link contact-channel-link--call" href="tel:+8801790136979" aria-label="Call Captain Tanvir Nahian, +8801790136979">
+                    <span class="contact-channel-label">Call</span>
+                    <span class="contact-phone-number">+880 1790 136979</span>
+                    <span class="contact-action-hint">Tap to call</span>
+                  </a>
+                  <a class="contact-channel-link contact-channel-link--whatsapp" href="https://wa.me/8801790136979" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Captain Tanvir Nahian, +8801790136979">
+                    <span class="contact-channel-label">WhatsApp</span>
+                    <span class="contact-phone-number">+880 1790 136979</span>
+                    <span class="contact-action-hint">Tap to message</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
           </article>
-          <article class="card contact-card">
-            <div class="contact-icon" aria-hidden="true">&#9742;</div>
-            <h3>Phone</h3>
-            <p><a id="contact-phone" href="tel:">+01000000000</a></p>
-          </article>
-          <article class="card contact-card">
-            <div class="contact-icon" aria-hidden="true">&#128205;</div>
-            <h3>Location</h3>
-            <p id="contact-address">Mirpur DOHS, Dhaka, Bangladesh</p>
-          </article>
-          <article class="card contact-card">
-            <div class="contact-icon" aria-hidden="true">&#128339;</div>
-            <h3>Hours</h3>
-            <p id="contact-hours">Sun – Fri, 10:00 – 18:00</p>
-          </article>
+
+          <div class="contact-quick">
+            <a class="card contact-card contact-action" href="mailto:info@dreamersden.org" aria-label="Send email to info@dreamersden.org">
+              <div class="contact-icon" aria-hidden="true">&#9993;</div>
+              <h3>Email</h3>
+              <p class="contact-action-value" id="contact-email">info@dreamersden.org</p>
+              <span class="contact-action-hint">Tap to send email</span>
+            </a>
+
+            <a class="card contact-card contact-action" href="https://maps.app.goo.gl/w8bwZoHwkQiR7afR6" target="_blank" rel="noopener noreferrer" aria-label="Open Mirpur DOHS, Dhaka in Google Maps">
+              <div class="contact-icon" aria-hidden="true">&#128205;</div>
+              <h3>Location</h3>
+              <p class="contact-action-value" id="contact-address">Mirpur DOHS, Dhaka, Bangladesh</p>
+              <span class="contact-action-hint">Open in Google Maps</span>
+            </a>
+
+            <article class="card contact-card contact-card--info">
+              <div class="contact-icon" aria-hidden="true">&#128339;</div>
+              <h3>Hours</h3>
+              <p id="contact-hours">Sun – Fri, 10:00 – 18:00</p>
+            </article>
+          </div>
         </div>
 
         <div class="contact-grid reveal" style="margin-bottom: 0;">
@@ -105,7 +154,7 @@
         <div class="footer-brand">
           <strong>Dreamers Den — Event Management</strong>
           <p data-tagline>Quality in time</p>
-          <p><a id="main-site-link" href="#">Back to Dreamers Den main site</a></p>
+          <p><a id="main-site-link" href="#">Back to Dreamers Den main site(Coming Soon)</a></p>
         </div>
         <div class="footer-links">
           <a href="about.html">About</a>

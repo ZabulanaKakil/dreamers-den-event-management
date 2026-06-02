@@ -15,10 +15,14 @@ window.SITE_CONFIG = {
     "https://docs.google.com/forms/d/e/1FAIpQLSctHyBbmzm6XlcWNYjFZiG6GluaRxROuQ-Vx39ICkQEi1oRPQ/viewform?embedded=true",
 
   contact: {
-    email: "contact@dreamersden.com",
-    phone: "+977 — — — — — —",
-    address: "Kathmandu, Nepal",
+    email: "info@dreamersden.org",
+    address: "Mirpur DOHS, Dhaka, Bangladesh",
+    mapsUrl: "https://maps.app.goo.gl/w8bwZoHwkQiR7afR6",
     hours: "Sun – Fri, 10:00 – 18:00",
+    phones: [
+      { name: "Mr. Zahid Hasan Shumon", role: "Director", number: "+8801775313689", whatsapp: "8801775313689" },
+      { name: "Captain Tanvir Nahian", role: "General Manager", note: "retired", number: "+8801790136979", whatsapp: "8801790136979" },
+    ],
     social: {
       facebook: "#",
       instagram: "#",
@@ -108,9 +112,58 @@ window.SITE_CONFIG = {
   ],
 
   milestones: [
-    { year: "2020", title: "Founded", text: "Dreamers Den Event Management began with a vision to deliver quality events on time." },
-    { year: "2022", title: "Growing portfolio", text: "Expanded services across sound, lighting, staging, and full event production." },
-    { year: "2024", title: "Trusted partners", text: "Built lasting relationships with venues, vendors, and repeat clients." },
-    { year: "Today", title: "Your next event", text: "Ready to bring your vision to life — tell us what you need." },
+    {
+      type: "milestone",
+      year: "2020",
+      title: "Where it began",
+      text: "Dreamers Den Event Management launched with a clear promise: quality events, delivered on time.",
+      image: "assets/images/logo.png",
+      imageAlt: "Dreamers Den logo",
+      launch: true,
+    },
+    {
+      type: "milestone",
+      year: "2021",
+      title: "Building momentum",
+      text: "Our first seasons of live work — smaller stages, growing trust, and hands-on production across sound and visuals.",
+      image: "assets/images/logo.png",
+      imageAlt: "Dreamers Den — 2021 (photo coming soon)",
+    },
+    {
+      type: "gap",
+      year: "2021 → 2023",
+      title: "Post-COVID pause",
+      text: "Operations slowed through the pandemic years as we regrouped, adapted, and prepared for the next chapter.",
+    },
+    {
+      type: "milestone",
+      year: "2023",
+      title: "Back on stage",
+      text: "A renewed push into full event production — expanded services, stronger vendor ties, and busier calendars.",
+      image: "assets/images/logo.png",
+      imageAlt: "Dreamers Den — 2023 (photo coming soon)",
+    },
+    {
+      type: "milestone",
+      year: "2024",
+      title: "Steady growth",
+      text: "More repeat clients and larger productions as we refined how we plan, crew, and deliver every show.",
+      image: "assets/images/logo.png",
+      imageAlt: "Dreamers Den — 2024 (photo coming soon)",
+    },
+    {
+      type: "gap",
+      year: "Jul 2024",
+      title: "Bangladesh — July 2024",
+      text: "A difficult period during unrest in Bangladesh affected our team and partners. We paused, reflected, and focused on safety before moving forward.",
+    },
+    {
+      type: "milestone",
+      year: "2026",
+      title: "Today and ahead",
+      text: "We are booking the next generation of events — bringing the same standards of quality and timing to every brief we take on.",
+      image: "assets/images/logo.png",
+      imageAlt: "Dreamers Den — 2026 (photo coming soon)",
+    },
   ],
 };

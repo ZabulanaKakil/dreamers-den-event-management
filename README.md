@@ -32,13 +32,42 @@ Edit **[js/config.js](js/config.js)** for most content changes:
 - `contact` — email, phone, address, hours, social links
 - `services` — service names, descriptions, images
 - `partners` — partner names, categories, logo paths
-- `milestones` — About page timeline
+- `milestones` — About page journey timeline (see below)
+
+### Journey timeline (`milestones`)
+
+Each entry is either a **milestone** (year card with optional photo) or a **gap** (transition / pause on the timeline).
+
+| Field | Milestone | Gap |
+|-------|-----------|-----|
+| `type` | `"milestone"` | `"gap"` |
+| `year` | e.g. `"2020"` | e.g. `"2021 → 2023"` or `"Jul 2024"` |
+| `title` | Heading | Heading |
+| `text` | Short description | Short description |
+| `image` | Optional image path | — |
+| `imageAlt` | Alt text for `image` | — |
+| `imageHint` | Shown in placeholder until you add `image` | — |
+| `launch` | `true` for launch/logo styling (2020) | — |
+
+Example milestone with photo:
+
+```js
+{
+  type: "milestone",
+  year: "2023",
+  title: "Back on stage",
+  text: "…",
+  image: "assets/images/journey/2023.jpg",
+  imageAlt: "Event stage setup, 2023"
+}
+```
 
 ## Replace assets
 
 | Asset | Location |
 |-------|----------|
 | Logo | `assets/images/logo.png` (from `Artboard1.png`) |
+| Journey photos | `assets/images/journey/` — e.g. `2021.jpg`, `2023.jpg`, `2024.jpg`, `2026.jpg`; set `image` in each milestone in `config.js` |
 | Service images | `assets/images/services/*.svg` or your own JPG/PNG |
 | Partner logos | `assets/images/partners/` + update `image` in config |
 
@@ -62,7 +91,7 @@ Use **[NOTES.md](NOTES.md)** to record your own changes, content updates, and de
 ├── index.html, about.html, services.html, partners.html, contact.html
 ├── css/          variables, base, components, pages
 ├── js/           config.js, main.js
-├── assets/images/
+├── assets/images/   (logo, services, journey, partners)
 ├── README.md     (this file — setup & deploy)
 ├── NOTES.md      (your change log — blank to start)
 └── .nojekyll

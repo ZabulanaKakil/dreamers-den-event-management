@@ -127,22 +127,58 @@
       .join("");
   }
 
+  function isLogoMedia(image) {
+    return typeof image === "string" && /logo\.png$/i.test(image);
+  }
+
+  function renderTimelineMedia(m) {
+    if (m.image) {
+      const alt = m.imageAlt || m.title || "";
+      const logoClass = m.launch || isLogoMedia(m.image) ? " timeline-media--logo" : "";
+      return `<div class="timeline-media${logoClass}"><img src="${escapeHtml(m.image)}" alt="${escapeHtml(alt)}" loading="lazy" width="640" height="360"></div>`;
+    }
+    const hint = m.imageHint || `assets/images/journey/${m.year}.jpg`;
+    return `<div class="timeline-media timeline-media-placeholder" aria-hidden="true">Add photo: ${escapeHtml(hint)}</div>`;
+  }
+
+  function renderTimelineMilestone(m) {
+    const launchClass = m.launch ? " timeline-item--launch" : "";
+    return `
+      <li class="timeline-item reveal${launchClass}">
+        <div class="timeline-year">${escapeHtml(m.year)}</div>
+        <div class="timeline-content">
+          ${renderTimelineMedia(m)}
+          <div class="timeline-body">
+            <h3>${escapeHtml(m.title)}</h3>
+            <p>${escapeHtml(m.text)}</p>
+          </div>
+        </div>
+      </li>`;
+  }
+
+  function renderTimelineGap(m) {
+    return `
+      <li class="timeline-gap reveal">
+        <div class="timeline-year timeline-year--gap">${escapeHtml(m.year)}</div>
+        <div class="timeline-gap-content">
+          <span class="timeline-gap-marker" aria-hidden="true">···</span>
+          <h3>${escapeHtml(m.title)}</h3>
+          <p>${escapeHtml(m.text)}</p>
+        </div>
+      </li>`;
+  }
+
   function renderTimeline() {
     const list = document.getElementById("timeline");
     if (!list || !config.milestones?.length) return;
 
     list.innerHTML = config.milestones
-      .map(
-        (m) => `
-      <li class="timeline-item reveal">
-        <div class="timeline-year">${escapeHtml(m.year)}</div>
-        <div class="timeline-content">
-          <h3>${escapeHtml(m.title)}</h3>
-          <p>${escapeHtml(m.text)}</p>
-        </div>
-      </li>`
-      )
+      .map((m) => (m.type === "gap" ? renderTimelineGap(m) : renderTimelineMilestone(m)))
       .join("");
+  }
+
+  function isContactStatic(el) {
+    return el?.closest("[data-contact-static]") != null;
   }
 
   function renderContact() {
@@ -150,25 +186,25 @@
     if (!c) return;
 
     const emailEl = document.getElementById("contact-email");
-    const phoneEl = document.getElementById("contact-phone");
+    const emailCard = document.querySelector('a.contact-action[href^="mailto:"]');
     const addressEl = document.getElementById("contact-address");
+    const locationCard = document.querySelector('a.contact-action[href*="maps"]');
     const hoursEl = document.getElementById("contact-hours");
 
-    if (emailEl) {
-      emailEl.href = `mailto:${c.email}`;
+    if (emailEl && !isContactStatic(emailEl)) {
       emailEl.textContent = c.email;
+      if (emailCard) emailCard.setAttribute("href", `mailto:${c.email}`);
     }
-    if (phoneEl) {
-      phoneEl.href = `tel:${c.phone.replace(/\s/g, "")}`;
-      phoneEl.textContent = c.phone;
+    if (addressEl && !isContactStatic(addressEl)) addressEl.textContent = c.address;
+    if (locationCard && !isContactStatic(locationCard) && c.mapsUrl) {
+      locationCard.setAttribute("href", c.mapsUrl);
     }
-    if (addressEl) addressEl.textContent = c.address;
-    if (hoursEl) hoursEl.textContent = c.hours;
+    if (hoursEl && !isContactStatic(hoursEl)) hoursEl.textContent = c.hours;
 
     const fb = document.getElementById("social-facebook");
     const ig = document.getElementById("social-instagram");
-    if (fb && c.social?.facebook) fb.href = c.social.facebook;
-    if (ig && c.social?.instagram) ig.href = c.social.instagram;
+    if (fb && !isContactStatic(fb) && c.social?.facebook) fb.href = c.social.facebook;
+    if (ig && !isContactStatic(ig) && c.social?.instagram) ig.href = c.social.instagram;
   }
 
   function escapeHtml(str) {
@@ -190,12 +226,12 @@
     applyConfig();
     initNav();
     setActiveNav();
-    initReveal();
     renderServices();
     initServiceReadMore(document.getElementById("services-grid"));
     renderPartners();
     renderTimeline();
     renderContact();
     initPartnerTeaser();
+    initReveal();
   });
 })();
