@@ -41,13 +41,17 @@ Each entry is either a **milestone** (year card with optional photo) or a **gap*
 | Field | Milestone | Gap |
 |-------|-----------|-----|
 | `type` | `"milestone"` | `"gap"` |
-| `year` | e.g. `"2020"` | e.g. `"2021 → 2023"` or `"Jul 2024"` |
+| `year` | e.g. `"2020"` | e.g. `"2020 → 2022"` or `"Jul 2024"` |
 | `title` | Heading | Heading |
 | `text` | Short description | Short description |
+| `textOnly` | `true` for plain-text row (blue underline, no photo) | — |
 | `image` | Optional image path | — |
+| `images` | Optional array of `{ src, alt }` for multi-photo milestones | — |
 | `imageAlt` | Alt text for `image` | — |
 | `imageHint` | Shown in placeholder until you add `image` | — |
-| `launch` | `true` for launch/logo styling (2020) | — |
+| `launch` | `true` for first timeline entry styling | — |
+
+Text-only milestones omit `text` to use `milestoneTextDefault` from config. Photo milestones set `image` or `images`; do not set `textOnly`.
 
 Example milestone with photo:
 

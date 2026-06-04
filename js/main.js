@@ -131,10 +131,25 @@
     return typeof image === "string" && /logo\.png$/i.test(image);
   }
 
+  function milestoneText(m) {
+    return m.text || config.milestoneTextDefault || "";
+  }
+
   function renderTimelineMedia(m) {
+    if (m.textOnly) return "";
+    if (m.images?.length) {
+      const cells = m.images
+        .map((img) => {
+          const src = typeof img === "string" ? img : img.src;
+          const alt = typeof img === "string" ? m.imageAlt || m.title || "" : img.alt || m.title || "";
+          return `<div class="timeline-media-cell"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" width="640" height="360"></div>`;
+        })
+        .join("");
+      return `<div class="timeline-media timeline-media-grid">${cells}</div>`;
+    }
     if (m.image) {
       const alt = m.imageAlt || m.title || "";
-      const logoClass = m.launch || isLogoMedia(m.image) ? " timeline-media--logo" : "";
+      const logoClass = isLogoMedia(m.image) ? " timeline-media--logo" : "";
       return `<div class="timeline-media${logoClass}"><img src="${escapeHtml(m.image)}" alt="${escapeHtml(alt)}" loading="lazy" width="640" height="360"></div>`;
     }
     const hint = m.imageHint || `assets/images/journey/${m.year}.jpg`;
@@ -143,14 +158,16 @@
 
   function renderTimelineMilestone(m) {
     const launchClass = m.launch ? " timeline-item--launch" : "";
+    const textClass = m.textOnly ? " timeline-item--text" : "";
+    const media = renderTimelineMedia(m);
     return `
-      <li class="timeline-item reveal${launchClass}">
+      <li class="timeline-item reveal${launchClass}${textClass}">
         <div class="timeline-year">${escapeHtml(m.year)}</div>
         <div class="timeline-content">
-          ${renderTimelineMedia(m)}
+          ${media}
           <div class="timeline-body">
             <h3>${escapeHtml(m.title)}</h3>
-            <p>${escapeHtml(m.text)}</p>
+            <p>${escapeHtml(milestoneText(m))}</p>
           </div>
         </div>
       </li>`;
