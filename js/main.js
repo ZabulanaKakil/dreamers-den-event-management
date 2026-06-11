@@ -20,6 +20,73 @@
     if (taglineEl && config.tagline) taglineEl.textContent = config.tagline;
   }
 
+  function initTheme() {
+    const btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+
+    const STORAGE_KEY = "dd-theme";
+    const systemQuery = window.matchMedia("(prefers-color-scheme: light)");
+
+    function getStoredTheme() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        return stored === "light" || stored === "dark" ? stored : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function getSystemTheme() {
+      return systemQuery.matches ? "light" : "dark";
+    }
+
+    function resolveTheme() {
+      return getStoredTheme() || getSystemTheme();
+    }
+
+    function applyTheme(theme, options = {}) {
+      const { persist = false, animate = false } = options;
+
+      const run = () => {
+        if (theme === "light") {
+          document.documentElement.setAttribute("data-theme", "light");
+        } else {
+          document.documentElement.removeAttribute("data-theme");
+        }
+        if (persist) {
+          try {
+            localStorage.setItem(STORAGE_KEY, theme);
+          } catch (e) {
+            /* ignore */
+          }
+        }
+        btn.setAttribute("aria-label", theme === "light" ? "Switch to dark theme" : "Switch to light theme");
+      };
+
+      if (animate) {
+        document.documentElement.classList.add("theme-transition");
+        run();
+        window.setTimeout(() => {
+          document.documentElement.classList.remove("theme-transition");
+        }, 550);
+      } else {
+        run();
+      }
+    }
+
+    applyTheme(resolveTheme());
+
+    btn.addEventListener("click", () => {
+      const next = resolveTheme() === "light" ? "dark" : "light";
+      applyTheme(next, { persist: true, animate: true });
+    });
+
+    systemQuery.addEventListener("change", (event) => {
+      if (getStoredTheme()) return;
+      applyTheme(event.matches ? "light" : "dark", { animate: true });
+    });
+  }
+
   function initNav() {
     const toggle = document.querySelector(".nav-toggle");
     const nav = document.querySelector(".site-nav");
@@ -72,15 +139,11 @@
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
   }
 
-  function renderServices() {
-    const grid = document.getElementById("services-grid");
-    if (!grid || grid.dataset.static === "true" || !config.services?.length) return;
-
-    grid.innerHTML = config.services
-      .map(
-        (s) => `
+  function renderServiceCard(s) {
+    const imageClass = s.imageFit === "contain" ? " is-contain" : "";
+    return `
       <article class="card service-card reveal" data-service-id="${s.id}">
-        <div class="service-image">
+        <div class="service-image${imageClass}">
           <img src="${s.image}" alt="${escapeHtml(s.name)}" width="400" height="250" loading="lazy"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <span class="service-icon-fallback" style="display:none" aria-hidden="true">${s.name.charAt(0)}</span>
@@ -90,11 +153,38 @@
           <p class="service-desc">${escapeHtml(s.description)}</p>
           <button type="button" class="read-more" aria-expanded="false">Read more</button>
         </div>
-      </article>`
+      </article>`;
+  }
+
+  function getServiceGroups() {
+    if (config.serviceGroups?.length) return config.serviceGroups;
+    if (config.services?.length) {
+      return [{ id: "services", heading: "Our Services", services: config.services }];
+    }
+    return [];
+  }
+
+  function renderServices() {
+    const container = document.getElementById("services-sections");
+    if (!container || container.dataset.static === "true") return;
+
+    const groups = getServiceGroups();
+    if (!groups.length) return;
+
+    container.innerHTML = groups
+      .map(
+        (group) => `
+      <section class="service-group reveal" aria-labelledby="service-group-${group.id}">
+        <h2 class="service-group-heading" id="service-group-${group.id}">${escapeHtml(group.heading)}</h2>
+        <div class="services-grid">
+          ${group.services.map(renderServiceCard).join("")}
+        </div>
+      </section>`
       )
       .join("");
 
-    initServiceReadMore(grid);
+    initServiceReadMore(container);
+    initReveal();
   }
 
   function initServiceReadMore(root) {
@@ -107,24 +197,6 @@
         btn.textContent = expanded ? "Read less" : "Read more";
       });
     });
-  }
-
-  function renderPartners() {
-    const grid = document.getElementById("partners-grid");
-    if (!grid || !config.partners?.length) return;
-
-    grid.innerHTML = config.partners
-      .map(
-        (p, i) => `
-      <article class="card partner-card reveal">
-        <div class="partner-logo" role="img" aria-label="${escapeHtml(p.name)} logo placeholder">
-          ${p.image ? `<img src="${p.image}" alt="${escapeHtml(p.name)}">` : escapeHtml(p.name.charAt(0))}
-        </div>
-        <h3>${escapeHtml(p.name)}</h3>
-        <p>${escapeHtml(p.category)}</p>
-      </article>`
-      )
-      .join("");
   }
 
   function isLogoMedia(image) {
@@ -230,25 +302,15 @@
     return div.innerHTML;
   }
 
-  function initPartnerTeaser() {
-    const el = document.getElementById("partner-teaser");
-    if (!el || el.dataset.static === "true" || !config.partners?.length) return;
-    el.innerHTML = config.partners
-      .slice(0, 4)
-      .map((p) => `<span>${escapeHtml(p.name)}</span>`)
-      .join("");
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
     applyConfig();
+    initTheme();
     initNav();
     setActiveNav();
     renderServices();
-    initServiceReadMore(document.getElementById("services-grid"));
-    renderPartners();
+    initServiceReadMore(document.getElementById("services-sections"));
     renderTimeline();
     renderContact();
-    initPartnerTeaser();
     initReveal();
   });
 })();

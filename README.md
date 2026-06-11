@@ -9,7 +9,6 @@ Event Management sub-site for Dreamers Den — static HTML, CSS, and light JavaS
 | `index.html` | Landing page (entry from main Dreamers Den site) |
 | `about.html` | About us and milestones |
 | `services.html` | Our services (10 cards) |
-| `partners.html` | Partner showcase |
 | `contact.html` | Contact details + Google Form |
 
 ## Quick start (local preview)
@@ -31,7 +30,6 @@ Edit **[js/config.js](js/config.js)** for most content changes:
 - `googleFormUrl` / `googleFormEmbedUrl` — inquiry form
 - `contact` — email, phone, address, hours, social links
 - `services` — service names, descriptions, images
-- `partners` — partner names, categories, logo paths
 - `milestones` — About page journey timeline (see below)
 
 ### Journey timeline (`milestones`)
@@ -73,7 +71,6 @@ Example milestone with photo:
 | Logo | `assets/images/logo.png` (from `Artboard1.png`) |
 | Journey photos | `assets/images/journey/` — e.g. `2021.jpg`, `2023.jpg`, `2024.jpg`, `2026.jpg`; set `image` in each milestone in `config.js` |
 | Service images | `assets/images/services/*.svg` or your own JPG/PNG |
-| Partner logos | `assets/images/partners/` + update `image` in config |
 
 ## GitHub Pages
 
@@ -92,10 +89,10 @@ Use **[NOTES.md](NOTES.md)** to record your own changes, content updates, and de
 ## File structure
 
 ```
-├── index.html, about.html, services.html, partners.html, contact.html
+├── index.html, about.html, services.html, contact.html
 ├── css/          variables, base, components, pages
 ├── js/           config.js, main.js
-├── assets/images/   (logo, services, journey, partners)
+├── assets/images/   (logo, services, journey)
 ├── README.md     (this file — setup & deploy)
 ├── NOTES.md      (your change log — blank to start)
 └── .nojekyll

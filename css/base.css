@@ -10,6 +10,19 @@ html {
   scroll-behavior: smooth;
 }
 
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color var(--theme-transition),
+    color var(--theme-transition),
+    border-color var(--theme-transition),
+    box-shadow var(--theme-transition),
+    fill var(--theme-transition),
+    stroke var(--theme-transition) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -48,7 +61,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-surface);
+  color: var(--color-link-hover);
 }
 
 a:focus-visible,

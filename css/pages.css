@@ -56,7 +56,7 @@
   padding: 1.5rem;
   background: var(--color-bg-card);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border-subtle);
 }
 
 .highlight-card h3 {
@@ -70,7 +70,22 @@
   margin: 0;
 }
 
-/* Services grid */
+/* Services — grouped sections */
+.service-group {
+  margin-bottom: 3rem;
+}
+
+.service-group:last-child {
+  margin-bottom: 0;
+}
+
+.service-group-heading {
+  font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -90,6 +105,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.service-card .service-image.is-contain {
+  background: var(--color-image-contain-bg);
+}
+
+.service-card .service-image.is-contain img {
+  object-fit: contain;
+  padding: 0.75rem;
 }
 
 .service-card .service-image .service-icon-fallback {
@@ -240,7 +264,7 @@
 .timeline-content {
   background: var(--color-bg-card);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border-subtle);
   overflow: hidden;
 }
 
@@ -301,7 +325,7 @@
   text-align: center;
   font-size: 0.8125rem;
   color: var(--color-text-muted);
-  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border: 1px dashed var(--color-border);
   border-radius: 0;
   aspect-ratio: 16 / 9;
 }
@@ -402,45 +426,6 @@
   font-size: 1.0625rem;
   line-height: 1.75;
   color: var(--color-text-muted);
-}
-
-/* Partners */
-.partners-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1.5rem;
-}
-
-.partner-card {
-  text-align: center;
-  padding: 1.5rem;
-}
-
-.partner-logo {
-  width: 100%;
-  aspect-ratio: 1;
-  max-width: 120px;
-  margin: 0 auto 1rem;
-  background: var(--color-bg-elevated);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.partner-card h3 {
-  font-size: 1rem;
-  margin-bottom: 0.25rem;
-}
-
-.partner-card p {
-  font-size: 0.8125rem;
-  color: var(--color-text-muted);
-  margin: 0;
 }
 
 /* Contact */
@@ -651,7 +636,7 @@
   min-height: 0;
   padding: 1rem;
   background: var(--color-bg-elevated);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
 }
 
@@ -660,7 +645,7 @@
   flex-direction: column;
   gap: 0.15rem;
   padding-bottom: 0.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .contact-person-channels {
@@ -679,7 +664,7 @@
   text-decoration: none;
   color: inherit;
   background: var(--color-bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   transition: border-color var(--transition), background var(--transition), transform var(--transition);
 }
@@ -775,7 +760,7 @@
   background: var(--color-bg-card);
   border-radius: var(--radius-md);
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border-subtle);
 }
 
 .form-section h2 {
@@ -828,24 +813,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Partner teaser on home (legacy) */
-.partner-teaser {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 1.5rem;
-}
-
-.partner-teaser span {
-  padding: 0.5rem 1rem;
-  background: var(--color-bg-card);
-  border-radius: var(--radius-sm);
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
 /* Project customers — home (soothing) */
 .section--soothing {
   padding-block: 4rem;
@@ -865,10 +832,10 @@
   margin-inline: auto;
   padding: 2.5rem 2rem;
   text-align: center;
-  background: rgba(26, 26, 26, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--color-panel-bg);
+  border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 24px 48px var(--color-panel-shadow);
 }
 
 .customers-header {
@@ -912,15 +879,15 @@
   font-size: 1rem;
   font-weight: 500;
   color: var(--color-text);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(0, 123, 255, 0.12);
+  background: var(--color-item-bg);
+  border: 1px solid var(--color-accent-border);
   border-radius: var(--radius-md);
   transition: background var(--transition), border-color var(--transition);
 }
 
 .customer-item:hover {
-  background: rgba(0, 123, 255, 0.06);
-  border-color: rgba(0, 123, 255, 0.22);
+  background: var(--color-nav-active-bg);
+  border-color: var(--color-accent-border-hover);
 }
 
 .customers-more {
@@ -945,11 +912,58 @@
 
 .customers-footer-note a:hover {
   opacity: 1;
-  color: var(--color-surface);
+  color: var(--color-link-hover);
 }
 
 @media (min-width: 640px) {
   .customers-panel {
     padding: 3rem 2.5rem;
   }
+}
+
+/* Home — events we manage (blue) & exclude (red) */
+.events-section--manage {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 123, 255, 0.08) 50%,
+    transparent 100%
+  );
+}
+
+.events-section--manage .customers-eyebrow {
+  color: #66b3ff;
+}
+
+.events-section--manage .customer-item {
+  background: rgba(0, 123, 255, 0.06);
+  border-color: rgba(51, 157, 255, 0.28);
+}
+
+.events-section--manage .customer-item:hover {
+  background: rgba(0, 123, 255, 0.12);
+  border-color: rgba(51, 157, 255, 0.45);
+}
+
+.events-section--exclude {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(220, 53, 69, 0.06) 50%,
+    transparent 100%
+  );
+}
+
+.events-section--exclude .customers-eyebrow {
+  color: #f87171;
+}
+
+.events-section--exclude .customer-item {
+  background: rgba(220, 53, 69, 0.06);
+  border-color: rgba(248, 113, 113, 0.28);
+}
+
+.events-section--exclude .customer-item:hover {
+  background: rgba(220, 53, 69, 0.12);
+  border-color: rgba(248, 113, 113, 0.45);
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>(function(){try{var s=localStorage.getItem("dd-theme");var l=s==="light"||(s!=="dark"&&window.matchMedia("(prefers-color-scheme: light)").matches);if(l)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="About Dreamers Den Event Management — our story, milestones, and commitment to quality events.">
@@ -21,16 +22,21 @@
           <span class="logo-subtitle">Event Management</span>
         </span>
       </a>
-      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">&#9776;</button>
-      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="services.html">Our Services</a></li>
-          <li><a href="partners.html">Our Partners</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </nav>
+      <div class="header-end">
+        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Our Services</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </nav>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme">
+          <span class="theme-toggle-icon theme-toggle-icon--sun" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span>
+          <span class="theme-toggle-icon theme-toggle-icon--moon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        </button>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">&#9776;</button>
+      </div>
     </div>
   </header>
 
@@ -39,13 +45,15 @@
       <div class="container">
         <div class="section-header reveal">
           <h1>About Us</h1>
-          <p>What we have built — and where we are headed.</p>
+          <p>Lets Explore Our Story</p>
         </div>
 
         <div class="about-intro reveal">
-          <h2>Who we are</h2>
+          <h2> Who we are</h2>
           <p>
-            Dreamers Den Event Management is the dedicated events arm of Dreamers Den — a team built on technical know-how and creative execution. From corporate inaugurations and reunions to concerts, weddings, and community gatherings, we plan and deliver end-to-end production: sound systems, LED and lighting, staging and décor, banners and branding, videography, and the small details that keep an event running smoothly. We work closely with clients and venues so every brief is understood, every timeline is realistic, and every show goes live on schedule. Our promise is simple: memorable experiences, delivered with quality and on time — whether you need a full ceremony package or support for a single element of your program.
+            Dreamers Den Event Management is the dedicated events arm of Dreamers Den — a team built on technical know-how and creative execution. From corporate inaugurations and reunions to concerts and community gatherings, we plan and deliver end-to-end production: sound systems, LED and lighting, staging and décor, banners and branding, videography, and the small details that keep an event running smoothly. We work closely with clients and venues so every brief is understood, every timeline is realistic, and every show goes live on schedule. Our promise is simple: memorable experiences, delivered with quality and on time — whether you need a full ceremony package or support for a single element of your program.
+            <br><br>
+            We also provide gift combos, T-shirts, tracksuits, jackets and many more garments, and customised branding items for events, clients, and special occasions.
           </p>
         </div>
 
@@ -75,7 +83,6 @@
         <div class="footer-links">
           <a href="about.html">About</a>
           <a href="services.html">Services</a>
-          <a href="partners.html">Partners</a>
           <a href="contact.html">Contact</a>
         </div>
       </div>

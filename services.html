@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>(function(){try{var s=localStorage.getItem("dd-theme");var l=s==="light"||(s!=="dark"&&window.matchMedia("(prefers-color-scheme: light)").matches);if(l)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Our event services — sound, LED, branding, staging, lighting, video, furnishings, and layout design.">
+  <meta name="description" content="Event management and Suvenier services — sound, LED, staging, gift combos, garments, and customised branding.">
   <title>Our Services — Dreamers Den Event Management</title>
   <link rel="icon" href="assets/images/logo.png" type="image/png">
   <link rel="stylesheet" href="css/variables.css">
@@ -21,16 +22,21 @@
           <span class="logo-subtitle">Event Management</span>
         </span>
       </a>
-      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">&#9776;</button>
-      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="services.html">Our Services</a></li>
-          <li><a href="partners.html">Our Partners</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </nav>
+      <div class="header-end">
+        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Our Services</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </nav>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme">
+          <span class="theme-toggle-icon theme-toggle-icon--sun" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span>
+          <span class="theme-toggle-icon theme-toggle-icon--moon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        </button>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">&#9776;</button>
+      </div>
     </div>
   </header>
 
@@ -39,122 +45,10 @@
       <div class="container">
         <div class="section-header reveal">
           <h1>Our Services</h1>
-          <p>Everything you need for a successful event — from technical production to creative presentation.</p>
+          <p>Event production, creative presentation, and branded souvenirs — all from one team.</p>
         </div>
 
-        <div id="services-grid" class="services-grid" data-static="true" aria-live="polite">
-
-          <article class="card service-card reveal">
-            <div class="service-image">
-              <img src="assets/images/services/sound-system.jpg" alt="Sound System" width="400" height="250" loading="lazy">
-            </div>
-            <div class="service-body">
-              <h3>Sound System</h3>
-              <p class="service-desc">Professional audio setup for events of any scale — clear sound for speeches, music, and performances.</p>
-              <button type="button" class="read-more" aria-expanded="false">Read more</button>
-            </div>
-          </article>
-
-          <article class="card service-card reveal">
-            <div class="service-image">
-              <img src="assets/images/services/led.jpg" alt="LED" width="400" height="250" loading="lazy">
-            </div>
-            <div class="service-body">
-              <h3>LED</h3>
-              <p class="service-desc">Dynamic LED displays and screens to engage your audience and elevate your stage presence.</p>
-              <button type="button" class="read-more" aria-expanded="false">Read more</button>
-            </div>
-          </article>
-
-          <article class="card service-card reveal">
-            <div class="service-image">
-              <img src="assets/images/services/branding.jpg" alt="Branding" width="400" height="250" loading="lazy">
-            </div>
-            <div class="service-body">
-              <h3>Branding</h3>
-              <p class="service-desc">Cohesive visual identity across your event — logos, colours, and branded touchpoints.</p>
-              <button type="button" class="read-more" aria-expanded="false">Read more</button>
-            </div>
-          </article>
-
-          <article class="card service-card reveal">
-            <div class="service-image">
-              <img src="assets/images/services/banner.jpg" alt="Banner / Advertisement" width="400" height="250" loading="lazy">
-            </div>
-            <div class="service-body">
-              <h3>Banner / Advertisement</h3>
-              <p class="service-desc">Eye-catching banners and promotional materials tailored to your event and venue.</p>
-              <button type="button" class="read-more" aria-expanded="false">Read more</button>
-            </div>
-          </article>
-
-          <article class="card service-card reveal">
-            <div class="service-image">
-              <img src="assets/images/services/stage-decoration.jpg" alt="Stage Decoration" width="400" height="250" loading="lazy">
-            </div>
-            <div class="service-body">
-              <h3>Stage Decoration</h3>
-              <p class="service-desc">Transform your stage with creative décor that matches your theme and wows your guests.</p>
-              <button type="button" class="read-more" aria-expanded="false">Read more</button>
-            </div>
-          </article>
-
-          <article class="card service-card reveal">
-            <div class="service-image">
-              <img src="assets/images/services/lighting.jpg" alt="Lighting" width="400" height="250" loading="lazy">
-            </div>
-            <div class="service-body">
-              <h3>Lighting</h3>
-              <p class="service-desc">Atmospheric and functional lighting design to set the mood and highlight key moments.</p>
-              <button type="button" class="read-more" aria-expanded="false">Read more</button>
-            </div>
-          </article>
-
-          <article class="card service-card reveal">
-            <div class="service-image">
-              <img src="assets/images/services/documentary.jpg" alt="Documentary" width="400" height="250" loading="lazy">
-            </div>
-            <div class="service-body">
-              <h3>Documentary</h3>
-              <p class="service-desc">Capture the story of your event with professional documentary-style coverage.</p>
-              <button type="button" class="read-more" aria-expanded="false">Read more</button>
-            </div>
-          </article>
-
-          <article class="card service-card reveal">
-            <div class="service-image">
-              <img src="assets/images/services/videography.jpg" alt="Videography" width="400" height="250" loading="lazy">
-            </div>
-            <div class="service-body">
-              <h3>Videography</h3>
-              <p class="service-desc">High-quality video production — from highlights to full event recordings.</p>
-              <button type="button" class="read-more" aria-expanded="false">Read more</button>
-            </div>
-          </article>
-
-          <article class="card service-card reveal">
-            <div class="service-image">
-              <img src="assets/images/services/furnishments.jpg" alt="Furnishments" width="400" height="250" loading="lazy">
-            </div>
-            <div class="service-body">
-              <h3>Furnishments</h3>
-              <p class="service-desc">Furniture and fittings arranged for comfort, style, and flow at your venue.</p>
-              <button type="button" class="read-more" aria-expanded="false">Read more</button>
-            </div>
-          </article>
-
-          <article class="card service-card reveal">
-            <div class="service-image">
-              <img src="assets/images/services/layouts.jpg" alt="Presentation and Design of Layouts" width="400" height="250" loading="lazy">
-            </div>
-            <div class="service-body">
-              <h3>Presentation &amp; Design of Layouts</h3>
-              <p class="service-desc">Floor plans and spatial design so every guest enjoys the best experience.</p>
-              <button type="button" class="read-more" aria-expanded="false">Read more</button>
-            </div>
-          </article>
-
-        </div>
+        <div id="services-sections" aria-live="polite"></div>
 
         <!-- <p class="service-credits reveal" style="margin-top: 2rem; font-size: 0.8125rem; color: var(--color-text-muted); text-align: center;">
           Service photos from <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a> and <a href="https://www.pexels.com" target="_blank" rel="noopener noreferrer">Pexels</a> (free stock).
@@ -180,7 +74,6 @@
         <div class="footer-links">
           <a href="about.html">About</a>
           <a href="services.html">Services</a>
-          <a href="partners.html">Partners</a>
           <a href="contact.html">Contact</a>
         </div>
       </div>
