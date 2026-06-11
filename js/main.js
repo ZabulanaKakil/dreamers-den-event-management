@@ -302,6 +302,176 @@
     return div.innerHTML;
   }
 
+  function milestoneImage(m) {
+    if (m.image) {
+      return { src: m.image, alt: m.imageAlt || m.title || "" };
+    }
+    if (m.images?.length) {
+      const img = m.images[0];
+      const src = typeof img === "string" ? img : img.src;
+      const alt = typeof img === "string" ? m.title || "" : img.alt || m.title || "";
+      return { src, alt };
+    }
+    return null;
+  }
+
+  function getJourneyCarouselSlides() {
+    const byYear = new Map();
+
+    (config.milestones || []).forEach((m) => {
+      if (m.type !== "milestone") return;
+      if (!byYear.has(m.year)) byYear.set(m.year, []);
+      byYear.get(m.year).push(m);
+    });
+
+    return [...byYear.entries()]
+      .sort(([a], [b]) => Number(a) - Number(b))
+      .map(([year, items]) => {
+        const milestone = items.find((item) => milestoneImage(item));
+        if (!milestone) return null;
+        const image = milestoneImage(milestone);
+        return {
+          year,
+          title: milestone.title,
+          src: image.src,
+          alt: image.alt,
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function renderJourneyCarousel() {
+    const root = document.getElementById("journey-carousel");
+    if (!root) return;
+
+    const slides = getJourneyCarouselSlides();
+    if (!slides.length) return;
+
+    const slideHtml = slides
+      .map(
+        (slide, i) => `
+      <figure class="journey-carousel-slide${i === 0 ? " is-active" : ""}" data-index="${i}" role="group" aria-roledescription="slide" aria-label="${escapeHtml(slide.year)} — ${escapeHtml(slide.title)}">
+        <div class="journey-carousel-media">
+          <img src="${escapeHtml(slide.src)}" alt="${escapeHtml(slide.alt)}" loading="${i === 0 ? "eager" : "lazy"}" width="960" height="540">
+        </div>
+        <figcaption class="journey-carousel-caption">
+          <span class="journey-carousel-year">${escapeHtml(slide.year)}</span>
+          <span class="journey-carousel-title">${escapeHtml(slide.title)}</span>
+        </figcaption>
+      </figure>`
+      )
+      .join("");
+
+    const dotsHtml = slides
+      .map(
+        (_, i) =>
+          `<button type="button" class="journey-carousel-dot${i === 0 ? " is-active" : ""}" data-index="${i}" role="tab" aria-selected="${i === 0 ? "true" : "false"}" aria-label="Go to slide ${i + 1}"></button>`
+      )
+      .join("");
+
+    root.innerHTML = `
+      <div class="journey-carousel-inner">
+        <button type="button" class="journey-carousel-btn journey-carousel-btn--prev" aria-label="Previous slide">&#10094;</button>
+        <div class="journey-carousel-viewport">
+          <div class="journey-carousel-track" style="--slide-count: ${slides.length};">
+            ${slideHtml}
+          </div>
+        </div>
+        <button type="button" class="journey-carousel-btn journey-carousel-btn--next" aria-label="Next slide">&#10095;</button>
+      </div>
+      <div class="journey-carousel-dots" role="tablist" aria-label="Carousel slides">
+        ${dotsHtml}
+      </div>`;
+
+    initJourneyCarousel(root, slides.length);
+  }
+
+  function initJourneyCarousel(root, count) {
+    if (count < 2) {
+      root.querySelectorAll(".journey-carousel-btn").forEach((btn) => {
+        btn.disabled = true;
+        btn.setAttribute("aria-hidden", "true");
+      });
+      return;
+    }
+
+    const track = root.querySelector(".journey-carousel-track");
+    const slideEls = [...root.querySelectorAll(".journey-carousel-slide")];
+    const dots = [...root.querySelectorAll(".journey-carousel-dot")];
+    const prevBtn = root.querySelector(".journey-carousel-btn--prev");
+    const nextBtn = root.querySelector(".journey-carousel-btn--next");
+    let index = 0;
+    let timerId = null;
+    let touchStartX = 0;
+
+    function goTo(nextIndex) {
+      index = (nextIndex + count) % count;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      slideEls.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("is-active", i === index);
+        dot.setAttribute("aria-selected", i === index ? "true" : "false");
+      });
+    }
+
+    function restartAutoplay() {
+      if (timerId) clearInterval(timerId);
+      timerId = setInterval(() => goTo(index + 1), 6000);
+    }
+
+    prevBtn?.addEventListener("click", () => {
+      goTo(index - 1);
+      restartAutoplay();
+    });
+    nextBtn?.addEventListener("click", () => {
+      goTo(index + 1);
+      restartAutoplay();
+    });
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        goTo(Number(dot.dataset.index));
+        restartAutoplay();
+      });
+    });
+
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        goTo(index - 1);
+        restartAutoplay();
+      }
+      if (e.key === "ArrowRight") {
+        goTo(index + 1);
+        restartAutoplay();
+      }
+    });
+
+    const viewport = root.querySelector(".journey-carousel-viewport");
+    viewport?.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      },
+      { passive: true }
+    );
+    viewport?.addEventListener(
+      "touchend",
+      (e) => {
+        const delta = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(delta) < 40) return;
+        goTo(delta > 0 ? index - 1 : index + 1);
+        restartAutoplay();
+      },
+      { passive: true }
+    );
+
+    root.addEventListener("mouseenter", () => {
+      if (timerId) clearInterval(timerId);
+    });
+    root.addEventListener("mouseleave", restartAutoplay);
+
+    restartAutoplay();
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     applyConfig();
     initTheme();
@@ -310,6 +480,7 @@
     renderServices();
     initServiceReadMore(document.getElementById("services-sections"));
     renderTimeline();
+    renderJourneyCarousel();
     renderContact();
     initReveal();
   });
