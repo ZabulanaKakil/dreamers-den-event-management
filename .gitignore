@@ -2,3 +2,6 @@
 Thumbs.db
 desktop.ini
 *.log
+
+# Large local assets — keep out of repo (GitHub 100 MB limit)
+assets/files/
