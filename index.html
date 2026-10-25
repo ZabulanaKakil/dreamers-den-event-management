@@ -1,68 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <script>(function(){try{var s=localStorage.getItem("dd-theme");var l=s==="light"||(s!=="dark"&&window.matchMedia("(prefers-color-scheme: light)").matches);if(l)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Dreamers Den Event Management — quality events on time. Sound, lighting, staging, branding, and full production.">
-  <title>Dreamers Den — Event Management</title>
+  <meta name="description" content="Dreamers Den Event Management — quality events on time. Sound, lighting, staging, branding, garments, and full production.">
+  <meta property="og:title" content="Dreamers Den — Event Management & Garments">
+  <meta property="og:description" content="Quality events on time. Live production and custom garments supply from Dhaka, Bangladesh.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/logo-eventmanagement.png">
+  <title>Dreamers Den — Event Management &amp; Garments</title>
   <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=optional" rel="stylesheet">
+  <link rel="preload" href="assets/images/logo.png" as="image">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/pages.css">
 </head>
-
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo-link">
-        <img src="assets/images/logo.png" alt="Dreamers Den logo" class="logo-img" width="48" height="48">
-        <span class="logo-text">
-          <span class="logo-title">Dreamers Den</span>
-          <span class="logo-subtitle">Event Management</span>
-        </span>
-      </a>
-      <div class="header-end">
-        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="services.html">Our Services</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-          </ul>
-        </nav>
-        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme">
-          <span class="theme-toggle-icon theme-toggle-icon--sun" aria-hidden="true"><svg
-              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="4" />
-              <path
-                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-            </svg></span>
-          <span class="theme-toggle-icon theme-toggle-icon--moon" aria-hidden="true"><svg
-              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg></span>
-        </button>
-        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav"
-          aria-label="Open menu">&#9776;</button>
-      </div>
-    </div>
-  </header>
+  <div data-site-header></div>
+  <script src="js/config.js"></script>
+  <script src="js/layout.js"></script>
 
   <main>
     <section class="hero">
       <div class="container">
-        <img src="assets/images/logo.png" alt="" class="hero-logo" width="120" height="120">
+        <img src="assets/images/logo.png" alt="" class="hero-logo" width="120" height="120" fetchpriority="high">
         <p class="hero-tagline" data-tagline>Quality in time</p>
         <h1>Event Management<br>That Brings Your Vision to Life</h1>
         <p class="hero-subtitle">
-          From sound and lighting to staging, branding, and video — we handle every detail so you can focus on your
-          guests.
+          From sound and lighting to staging, branding, garments, and video — we handle every detail so you can focus on your guests.
         </p>
         <div class="btn-group">
           <a href="contact.html" class="btn btn-primary">Get a quote</a>
@@ -96,8 +66,42 @@
         <div id="journey-carousel" class="journey-carousel reveal" role="region" aria-roledescription="carousel"
           aria-label="Journey highlights by year"></div>
         <p class="journey-carousel-footer reveal">
-          <a href="about.html">See the full timeline on About Us</a>
+          <a href="journey.html">See the full year-by-year timeline on Our Journey &rarr;</a>
         </p>
+      </div>
+    </section>
+
+    <section class="section divisions-spotlight-section" aria-labelledby="divisions-spotlight-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="customers-eyebrow">Two Specialized Experiences</p>
+          <h2 id="divisions-spotlight-heading">Choose Your Experience</h2>
+          <p>Whether you are staging a national ceremony or outfitting an institution with custom apparel, explore our two dedicated divisions.</p>
+        </div>
+        <div class="divisions-dual-grid">
+          <a href="services.html#event-management" class="division-portal-card division-portal-card--events tilt-card reveal">
+            <span class="division-portal-badge">Division 01 · Live Production</span>
+            <h3>Event Management</h3>
+            <p>Full-scale audio, dynamic LED walls, scenic stage architecture, lighting, documentary filming, and on-spot ceremony coordination.</p>
+            <ul class="division-portal-tags" aria-label="Key Event Management capabilities">
+              <li>Sound &amp; LED</li>
+              <li>Stage &amp; Lighting</li>
+              <li>Inaugurations &amp; Concerts</li>
+            </ul>
+            <span class="division-portal-cta">Enter Event Production &rarr;</span>
+          </a>
+          <a href="services.html#garments-supply" class="division-portal-card division-portal-card--garments tilt-card reveal">
+            <span class="division-portal-badge">Division 02 · Apparel &amp; Merchandising</span>
+            <h3>Garments Supply</h3>
+            <p>Custom tracksuits, reunion apparel, precision logo embroidery &amp; print breakdowns, and curated VIP souvenir gift combos.</p>
+            <ul class="division-portal-tags" aria-label="Key Garments Supply capabilities">
+              <li>Custom Tracksuits</li>
+              <li>Branded Apparel</li>
+              <li>Executive Gift Combos</li>
+            </ul>
+            <span class="division-portal-cta">Enter Garments Studio &rarr;</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -108,12 +112,10 @@
             <p class="customers-eyebrow">Proud to serve</p>
             <h2 id="customers-heading">Our Affiliates</h2>
             <p class="customers-intro">
-              We have had the privilege of supporting events for respected institutions across Bangladesh — with care,
-              precision, and calm coordination every step of the way.
-              <hr>
-              <br>
-              <b>Our valued affiliates include:</b>
+              We have had the privilege of supporting events for respected institutions across Bangladesh — with care, precision, and calm coordination every step of the way.
             </p>
+            <hr class="customers-divider">
+            <p class="customers-list-label"><strong>Our valued affiliates include:</strong></p>
           </div>
           <ul class="customers-list" role="list">
             <li class="customer-item">Bangladesh Govt Institutions</li>
@@ -123,53 +125,55 @@
           </ul>
           <p class="customers-more">and many more</p>
           <p class="customers-footer-note">
-            <b><a href="about.html">Discover our story</a></b>
+            <strong><a href="journey.html">Explore our full milestone journey &rarr;</a></strong>
           </p>
         </div>
       </div>
     </section>
 
-    <section class="section section--soothing events-section events-section--manage"
-      aria-labelledby="events-manage-heading">
+    <section class="section testimonials-section" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="customers-eyebrow">Client voices</p>
+          <h2 id="testimonials-heading">Trusted on High-Stakes Stages</h2>
+          <p>Feedback from organisers who relied on Dreamers Den for precision delivery.</p>
+        </div>
+        <div id="testimonials" class="testimonials-grid"></div>
+      </div>
+    </section>
+
+    <section class="section section--soothing events-section events-section--manage" aria-labelledby="events-manage-heading">
       <div class="container">
         <div class="customers-panel reveal">
           <div class="section-header customers-header">
             <p class="customers-eyebrow">Our expertise</p>
             <h2 id="events-manage-heading">What We Do</h2>
             <p class="customers-intro">
-              From official openings to formal gatherings — we specialise in structured, institutional events that
-              demand precision and polish.
+              From official openings to formal gatherings — we specialise in structured, institutional events that demand precision and polish.
             </p>
           </div>
           <ul class="customers-list" role="list">
             <li class="customer-item">Inauguration Ceremony organization and coordination</li>
             <li class="customer-item">Closing Ceremony</li>
             <li class="customer-item">Prize / Award Ceremony</li>
-            <li class="customer-item">Comprehensive Event Planning
-            </li>
-            <li class="customer-item">Venue Selection and Logistics
-            </li>
-            <li class="customer-item">Creative Decor and Theming
-            </li>
-            <li class="customer-item">Entertainment and Performances
-            </li>
-            <li class="customer-item">On-Site Coordination
-            </li>
+            <li class="customer-item">Comprehensive Event Planning</li>
+            <li class="customer-item">Venue Selection and Logistics</li>
+            <li class="customer-item">Creative Decor and Theming</li>
+            <li class="customer-item">Entertainment and Performances</li>
+            <li class="customer-item">On-Site Coordination</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section class="section section--soothing events-section events-section--exclude"
-      aria-labelledby="events-exclude-heading">
+    <section class="section section--soothing events-section events-section--exclude" aria-labelledby="events-exclude-heading">
       <div class="container">
         <div class="customers-panel reveal">
           <div class="section-header customers-header">
             <p class="customers-eyebrow">Outside our scope</p>
             <h2 id="events-exclude-heading">What We Don't Do</h2>
             <p class="customers-intro">
-              We focus on corporate and institutional events — personal celebrations are best handled by specialists in
-              that space.
+              We focus on corporate and institutional events — personal celebrations are best handled by specialists in that space.
             </p>
           </div>
           <ul class="customers-list" role="list">
@@ -185,37 +189,14 @@
         <div class="cta-strip reveal">
           <h2>Ready to plan your event?</h2>
           <p>Tell us what you need — we will get back to you with options and a quote.</p>
-          <a href="#" class="btn btn-primary" data-form-url target="_blank" rel="noopener noreferrer">Submit your
-            requirements</a>
+          <a href="#" class="btn btn-primary" data-form-url target="_blank" rel="noopener noreferrer">Submit your requirements</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <strong>Dreamers Den — Event Management</strong>
-          <p data-tagline>Quality in time</p>
-          <p><a id="main-site-link" href="#">Back to Dreamers Den main site(Coming Soon)</a></p>
-        </div>
-        <div class="footer-links">
-          <a href="about.html">About</a>
-          <a href="services.html">Services</a>
-          <a href="contact.html">Contact</a>
-        </div>
-      </div>
+  <div data-site-footer></div>
 
-      <div class="footer-bottom">
-        <p>&copy; <span id="year"></span> Dreamers Den Event Management. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-  <script src="js/config.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
 </body>
-
 </html>

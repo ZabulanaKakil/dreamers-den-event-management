@@ -4,97 +4,127 @@
   <script>(function(){try{var s=localStorage.getItem("dd-theme");var l=s==="light"||(s!=="dark"&&window.matchMedia("(prefers-color-scheme: light)").matches);if(l)document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="About Dreamers Den Event Management — our story, milestones, and commitment to quality events.">
+  <meta name="description" content="About Dreamers Den Event Management & Garments Supply — our story, core values, and two specialized divisions.">
+  <meta property="og:title" content="About Us — Dreamers Den">
+  <meta property="og:description" content="Our story, pillars, and dual divisions: Event Management and Garments Supply.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/logo-eventmanagement.png">
   <title>About Us — Dreamers Den Event Management</title>
   <link rel="icon" href="assets/images/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=optional" rel="stylesheet">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo-link">
-        <img src="assets/images/logo.png" alt="Dreamers Den logo" class="logo-img" width="48" height="48">
-        <span class="logo-text">
-          <span class="logo-title">Dreamers Den</span>
-          <span class="logo-subtitle">Event Management</span>
-        </span>
-      </a>
-      <div class="header-end">
-        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="services.html">Our Services</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-          </ul>
-        </nav>
-        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme">
-          <span class="theme-toggle-icon theme-toggle-icon--sun" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span>
-          <span class="theme-toggle-icon theme-toggle-icon--moon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-        </button>
-        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">&#9776;</button>
-      </div>
-    </div>
-  </header>
+  <div data-site-header></div>
+  <script src="js/config.js"></script>
+  <script src="js/layout.js"></script>
 
   <main>
-    <section class="section">
+    <section class="section about-page-section">
       <div class="container">
+        <nav data-breadcrumbs data-crumb-current="About Us"></nav>
         <div class="section-header reveal">
-          <h1>About Us</h1>
-          <p>Lets Explore Our Story</p>
+          <p class="customers-eyebrow">Our Story &amp; Identity</p>
+          <h1>About Dreamers Den</h1>
+          <p>Combining technical mastery, creative stage execution, and custom apparel manufacturing since 2019.</p>
         </div>
 
-        <div class="about-intro reveal">
-          <h2> Who we are</h2>
+        <div class="about-story-card tilt-card reveal">
+          <div class="about-story-badge">Established 2019 · Dhaka, Bangladesh</div>
+          <h2>Who We Are</h2>
           <p>
-            Dreamers Den Event Management is the dedicated events arm of Dreamers Den — a team built on technical know-how and creative execution. From corporate inaugurations and reunions to concerts and community gatherings, we plan and deliver end-to-end production: sound systems, LED and lighting, staging and décor, banners and branding, videography, and the small details that keep an event running smoothly. We work closely with clients and venues so every brief is understood, every timeline is realistic, and every show goes live on schedule. Our promise is simple: memorable experiences, delivered with quality and on time — whether you need a full ceremony package or support for a single element of your program.
-            <br><br>
-            We also provide gift combos, T-shirts, tracksuits, jackets and many more garments, and customised branding items for events, clients, and special occasions.
+            Dreamers Den Event Management is the dedicated production and merchandising arm of Dreamers Den — a team built on technical know-how and creative execution. From national infrastructure inaugurations and military seminars to corporate conferences, reunions, and concerts, we plan and deliver end-to-end production: sound systems, LED walls and lighting, custom stage architecture, banners and branding, documentary videography, and the critical details that keep high-profile programmes running smoothly.
           </p>
+          <p>
+            Alongside live event production, our <strong>Garments Supply</strong> division delivers custom-manufactured tracksuits, T-shirts, jackets, branded institutional wear, and curated VIP gift combos — giving organizations a single trusted partner for both the stage experience and the apparel their participants wear.
+          </p>
+          <div class="about-stats-row">
+            <div class="about-stat-item">
+              <span class="about-stat-value">2019</span>
+              <span class="about-stat-label">Year Founded</span>
+            </div>
+            <div class="about-stat-item">
+              <span class="about-stat-value">2</span>
+              <span class="about-stat-label">Core Divisions</span>
+            </div>
+            <div class="about-stat-item">
+              <span class="about-stat-value" data-stat-productions>14+</span>
+              <span class="about-stat-label">Landmark Productions</span>
+            </div>
+            <div class="about-stat-item">
+              <span class="about-stat-value">100%</span>
+              <span class="about-stat-label">On-Spot Coordination</span>
+            </div>
+          </div>
         </div>
 
-        <div class="section-header reveal">
-          <h2>Our journey</h2>
-          <p>Key moments from our start in 2019 to today.</p>
+        <div class="about-pillars-section reveal">
+          <div class="section-header">
+            <p class="customers-eyebrow">How We Operate</p>
+            <h2>Our Three Pillars</h2>
+            <p>Every brief — whether a national ceremony or a 1,000-piece garment run — is governed by the same standards.</p>
+          </div>
+          <div class="about-pillars-grid">
+            <article class="card about-pillar-card tilt-card">
+              <span class="about-pillar-num">01</span>
+              <h3>Precision Planning</h3>
+              <p>Realistic schedules, spatial layouts, and technical rehearsals mapped out well ahead of show day so nothing is left to guesswork.</p>
+            </article>
+            <article class="card about-pillar-card tilt-card">
+              <span class="about-pillar-num">02</span>
+              <h3>Technical &amp; Studio Mastery</h3>
+              <p>Concert-grade sound, high-brightness LED walls, scenic fabrication, and full-panel garment embroidery under one roof.</p>
+            </article>
+            <article class="card about-pillar-card tilt-card">
+              <span class="about-pillar-num">03</span>
+              <h3>On-Spot Coordination</h3>
+              <p>Our leadership and technical crew remain on the ground from initial rig to final curtain call, ensuring seamless execution.</p>
+            </article>
+          </div>
         </div>
-        <ol id="timeline" class="timeline" aria-label="Company milestones"></ol>
 
-        <div class="cta-strip reveal">
-          <h2>Want to work with us?</h2>
-          <p>Share your event details and we will respond with how we can help.</p>
-          <a href="contact.html" class="btn btn-primary">Contact us</a>
+        <div class="about-divisions-section reveal">
+          <div class="section-header">
+            <p class="customers-eyebrow">Our Capabilities</p>
+            <h2>Two Specialized Divisions</h2>
+            <p>Explore our dedicated service experiences tailored for live ceremonies and custom garments supply.</p>
+          </div>
+          <div class="divisions-dual-grid">
+            <a href="services.html#event-management" class="division-portal-card division-portal-card--events tilt-card">
+              <span class="division-portal-badge">Division 01 · Live Production</span>
+              <h3>Event Management</h3>
+              <p>Sound systems, LED screens, stage decoration, lighting design, banners, documentary filming, and venue layouts.</p>
+              <span class="division-portal-cta">Explore Event Management &rarr;</span>
+            </a>
+            <a href="services.html#garments-supply" class="division-portal-card division-portal-card--garments tilt-card">
+              <span class="division-portal-badge">Division 02 · Apparel &amp; Merchandising</span>
+              <h3>Garments Supply</h3>
+              <p>Custom tracksuits, institutional apparel, logo embroidery &amp; print breakdowns, and executive souvenir gift combos.</p>
+              <span class="division-portal-cta">Explore Garments Supply &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="cta-strip about-journey-cta reveal">
+          <p class="customers-eyebrow">2019 — 2026 Chronicle</p>
+          <h2>See Our Work in Action</h2>
+          <p>Walk through our year-by-year timeline of national inaugurations, defence seminars, corporate conferences, and concerts.</p>
+          <div class="btn-group">
+            <a href="journey.html" class="btn btn-primary">Explore Our Journey</a>
+            <a href="contact.html" class="btn btn-outline">Contact Our Team</a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <strong>Dreamers Den — Event Management</strong>
-          <p data-tagline>Quality in time</p>
-          <p><a id="main-site-link" href="#">Back to Dreamers Den main site(Coming Soon)</a></p>
-        </div>
-        <div class="footer-links">
-          <a href="about.html">About</a>
-          <a href="services.html">Services</a>
-          <a href="contact.html">Contact</a>
-        </div>
-      </div>
-     
-      <div class="footer-bottom">
-        <p>&copy; <span id="year"></span> Dreamers Den Event Management. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+  <div data-site-footer></div>
 
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-  <script src="js/config.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

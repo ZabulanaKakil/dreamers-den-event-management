@@ -8,6 +8,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 html.theme-transition,
@@ -106,6 +107,13 @@ main {
 .container {
   width: min(100% - 2rem, var(--max-width));
   margin-inline: auto;
+}
+
+main,
+.section,
+.container {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .section {

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zabulanakakil.github.io/dreamers-den-event-management/sitemap.xml
