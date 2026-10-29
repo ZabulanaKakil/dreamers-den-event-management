@@ -236,6 +236,29 @@
       </section>`;
   }
 
+  function lookStageHtml(kicker) {
+    return `
+      <div class="ttl-layout">
+        <div class="ttl-main">
+          <div class="ttl-stage" tabindex="0">
+            <div class="ttl-track"></div>
+            <div class="ttl-cursor" hidden>VIEW</div>
+          </div>
+          <label class="ttl-scrubber">
+            <span class="sr-only">Position in this carousel</span>
+            <span class="ttl-ticks" aria-hidden="true"></span>
+            <input class="ttl-range" type="range" min="0" max="0" step="1" value="0">
+          </label>
+          <button type="button" class="btn btn-outline ttl-view-all">View all</button>
+        </div>
+        <aside class="ttl-panel">
+          <p class="ttl-kicker">${kicker}</p>
+          <p class="ttl-count" aria-live="polite"></p>
+          <div class="ttl-panel-body"></div>
+        </aside>
+      </div>`;
+  }
+
   function renderGarmentsCatalogue() {
     const data = window.GARMENTS_DATA;
     if (!data) {
@@ -248,23 +271,17 @@
           <a href="#gift-combos">Gift combos</a>
           <a href="#all-souvenirs">All souvenirs</a>
         </nav>
-        <section class="tracksuit-studio" id="tracksuit-studio" data-tracksuit-studio aria-label="Tracksuit colourway studio">
-          <figure class="tracksuit-flat">
-            <img class="tracksuit-flat-img is-active" alt="">
-            <img class="tracksuit-flat-img" alt="">
-            <figcaption class="tracksuit-flat-caption"></figcaption>
-          </figure>
-          <div class="tracksuit-copy">
-            <h3 class="tracksuit-name"></h3>
-            <p class="tracksuit-note"></p>
-            <div class="swatch-rail" role="listbox" aria-label="Tracksuit colourways"></div>
-            <a class="own-brand" href="contact.html">+ Get your own brand</a>
+        <section class="ttl" id="tracksuit-studio" data-look-carousel data-look-noun="tracksuits" data-look-title="All tracksuits" aria-roledescription="carousel" aria-labelledby="tracksuit-studio-title">
+          <div class="garments-block-head">
+            <h3 id="tracksuit-studio-title">Tracksuits</h3>
+            <p>Drag through the looks. The card lists the colours and finish for the one in the centre.</p>
           </div>
+          ${lookStageHtml("In this look")}
         </section>
         <section class="combo-studio" id="gift-combos" data-combo-studio aria-labelledby="combo-studio-title">
           <div class="garments-block-head">
             <h3 id="combo-studio-title">Gift combos</h3>
-            <p>The large photo is the current set. The next sets wait in the queue beside it. Choose one to bring it forward.</p>
+            <p>Pick a set and read exactly what is packed. The smaller photos are the next sets — choose one to bring it forward.</p>
           </div>
           <div class="combo-filters" role="tablist" aria-label="Filter gift combos"></div>
           <div class="combo-layout">
@@ -278,8 +295,9 @@
               </div>
               <div class="combo-copy">
                 <h3 class="combo-name"></h3>
-                <ul class="combo-pills"></ul>
-                <div class="combo-box"></div>
+                <p class="combo-contents-label" id="combo-contents-label">In this box</p>
+                <ul class="combo-pills" aria-labelledby="combo-contents-label"></ul>
+                <p class="combo-box"></p>
               </div>
               <div class="combo-queue" aria-label="Upcoming combos"></div>
               <button type="button" class="btn btn-outline combo-show-all">Show all combos</button>
@@ -289,11 +307,13 @@
         <section class="souvenir-catalog" id="all-souvenirs" data-souvenir-catalog aria-labelledby="all-souvenirs-title">
           <div class="garments-block-head">
             <h3 id="all-souvenirs-title">All souvenirs</h3>
-            <p>Catalogue pieces and the extra gift types, shown without a brand mark. Specs stay on each card, with the finishes we can apply. Arrow keys move through the grid. Enter opens the details.</p>
+            <p>Drag through each piece. The card lists the specs and the finishes for the one in the centre.</p>
           </div>
           <div class="souvenir-filters" role="tablist" aria-label="Filter souvenirs"></div>
           <p class="souvenir-count" aria-live="polite"></p>
-          <div class="souvenir-grid" role="list"></div>
+          <div class="ttl" data-look-carousel data-look-noun="souvenirs" data-look-title="All souvenirs" aria-roledescription="carousel" aria-label="Souvenir looks">
+            ${lookStageHtml("This piece")}
+          </div>
         </section>
       </div>`;
   }
@@ -420,7 +440,8 @@
     initReveal(container);
     init3DTilt(container);
     if (pinHash) {
-      const target = document.querySelector(window.location.hash);
+      const hash = window.location.hash;
+      const target = hash.startsWith("#souvenir-") ? document.getElementById("all-souvenirs") : document.querySelector(hash);
       if (target) target.scrollIntoView({ block: "start", behavior: "instant" });
     }
   }
@@ -445,7 +466,7 @@
 
   function initGarmentsStudio(container) {
     initCatalogueJump(container.querySelector(".catalogue-jump"));
-    initTracksuitFlats(container.querySelector("[data-tracksuit-studio]"));
+    initTracksuitLooks(container.querySelector("#tracksuit-studio"));
     initComboRotator(container.querySelector("[data-combo-studio]"));
     initSouvenirCatalog(container.querySelector("[data-souvenir-catalog]"));
   }
@@ -508,94 +529,391 @@
     sync();
   }
 
-  function initTracksuitFlats(root) {
+  function quoteLinkHtml(label) {
+    const external = Boolean(config.googleFormUrl);
+    const href = external ? config.googleFormUrl : "contact.html";
+    const extra = external ? ' target="_blank" rel="noopener noreferrer"' : "";
+    return `<a class="btn btn-primary ttl-quote" href="${escapeHtml(href)}"${extra}>${escapeHtml(label)}</a>`;
+  }
+
+  function renderTracksuitPanel(item) {
+    const colors = item.colors || {};
+    const keys = [
+      ["body", "Jacket"],
+      ["pants", "Trousers"],
+      ["sleeves", "Sleeves"],
+      ["chest", "Chest"],
+      ["stripe", "Stripe"],
+      ["collar", "Collar"],
+      ["cuffs", "Cuffs"],
+    ];
+    const chips = keys
+      .filter(([key]) => colors[key])
+      .map(([key, label]) => `<li><span class="ttl-swatch" style="background:${colors[key]}"></span>${escapeHtml(label)}</li>`)
+      .join("");
+    const meta = [item.pattern ? `Pattern: ${item.pattern}` : "", item.print ? `Print: ${item.print}` : ""].filter(Boolean);
+    return `
+      <h3 class="ttl-name">${escapeHtml(item.name)}</h3>
+      <p class="ttl-note">${escapeHtml(item.note || "")}</p>
+      <ul class="ttl-swatches">${chips}</ul>
+      ${meta.map((line) => `<p class="ttl-meta">${escapeHtml(line)}</p>`).join("")}
+      ${quoteLinkHtml("Request a quote")}`;
+  }
+
+  function renderSouvenirPanel(item) {
+    const specs = (item.specs || []).map((label) => `<li>${escapeHtml(label)}</li>`).join("");
+    const labels = (item.labels || []).map((label) => `<li>${escapeHtml(label)}</li>`).join("");
+    return `
+      <h3 class="ttl-name">${escapeHtml(item.name)}</h3>
+      <p class="ttl-note">${escapeHtml(item.summary || "")}</p>
+      <ul class="feature-pills">${specs}</ul>
+      <ul class="souvenir-labels">${labels}</ul>
+      ${quoteLinkHtml("Request a quote")}`;
+  }
+
+  let lookCarouselSeq = 0;
+
+  function initLookCarousel(root, items, renderPanel) {
+    if (!root) return null;
+    const stage = root.querySelector(".ttl-stage");
+    const track = root.querySelector(".ttl-track");
+    const cursor = root.querySelector(".ttl-cursor");
+    const ticks = root.querySelector(".ttl-ticks");
+    const range = root.querySelector(".ttl-range");
+    const viewAll = root.querySelector(".ttl-view-all");
+    const countEl = root.querySelector(".ttl-count");
+    const bodyEl = root.querySelector(".ttl-panel-body");
+    if (!stage || !track || !range || !viewAll || !bodyEl) return null;
+
+    const noun = root.dataset.lookNoun || "items";
+    const title = root.dataset.lookTitle || "All items";
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const narrow = window.matchMedia("(max-width: 759px)");
+    const uid = ++lookCarouselSeq;
+    let list = items.slice();
+    let position = 0;
+    let panelKey = "";
+    let drag = null;
+    let raf = 0;
+
+    const flood = document.createElement("div");
+    flood.className = "ttl-flood";
+    flood.hidden = true;
+    flood.innerHTML = `
+      <div class="ttl-flood-backdrop" data-ttl-close></div>
+      <div class="ttl-flood-panel" role="dialog" aria-modal="true" aria-labelledby="ttl-flood-title-${uid}">
+        <div class="ttl-flood-head">
+          <h3 id="ttl-flood-title-${uid}"></h3>
+          <button type="button" class="ttl-flood-close" data-ttl-close aria-label="Close">&times;</button>
+        </div>
+        <div class="ttl-flood-grid"></div>
+      </div>`;
+    document.body.appendChild(flood);
+    const floodPanel = flood.querySelector(".ttl-flood-panel");
+    const floodGrid = flood.querySelector(".ttl-flood-grid");
+    const floodTitle = flood.querySelector("h3");
+    let floodReturn = null;
+
+    function prefersReduce() {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
+    function wrapDelta(index, pos, n) {
+      if (!n) return 0;
+      let d = index - pos;
+      d = ((d % n) + n) % n;
+      if (d > n / 2) d -= n;
+      return d;
+    }
+
+    function currentIndex() {
+      const n = list.length;
+      if (!n) return 0;
+      return ((Math.round(position) % n) + n) % n;
+    }
+
+    function stageStep() {
+      return Math.max(72, stage.clientWidth * (narrow.matches ? 0.46 : 0.3));
+    }
+
+    function renderFrames() {
+      const n = list.length;
+      viewAll.textContent = `View all (${n})`;
+      viewAll.disabled = n === 0;
+      range.max = String(Math.max(0, n - 1));
+      if (!n) {
+        track.innerHTML = `<p class="ttl-empty">Nothing to show in this group.</p>`;
+        ticks.innerHTML = "";
+        countEl.textContent = "";
+        bodyEl.innerHTML = "";
+        panelKey = "";
+        return;
+      }
+      track.innerHTML = list
+        .map((item, i) => {
+          const src = item.image || item.flat;
+          const near = Math.abs(wrapDelta(i, position, n)) <= 2.2;
+          const attr = near ? `src="${escapeHtml(src)}"` : `data-src="${escapeHtml(src)}"`;
+          return `<button type="button" class="ttl-item" data-index="${i}" aria-label="${escapeHtml(item.name)}">
+            <img ${attr} alt="${escapeHtml(item.name)}" width="800" height="800" decoding="async" draggable="false">
+          </button>`;
+        })
+        .join("");
+      ticks.innerHTML = list.map(() => "<span></span>").join("");
+      panelKey = "";
+    }
+
+    function paint() {
+      const n = list.length;
+      if (!n) return;
+      const limit = narrow.matches ? 1.35 : 2.55;
+      const step = stageStep();
+      const reduce = prefersReduce();
+      track.querySelectorAll(".ttl-item").forEach((fig) => {
+        const index = Number(fig.dataset.index);
+        const d = wrapDelta(index, position, n);
+        const ad = Math.abs(d);
+        if (ad > limit) {
+          fig.hidden = true;
+          return;
+        }
+        fig.hidden = false;
+        const scale = 1 - 0.22 * Math.min(ad, 2);
+        fig.style.transform = `translate(-50%, -50%) translateX(${d * step}px) scale(${scale})`;
+        fig.style.opacity = String(Math.max(0.18, 1 - 0.38 * ad));
+        fig.style.filter = reduce || ad < 0.08 ? "none" : `blur(${Math.min(ad, 2) * 4}px)`;
+        fig.style.zIndex = String(20 - Math.round(ad * 4));
+        const img = fig.querySelector("img");
+        if (img && img.dataset.src && !img.getAttribute("src")) img.src = img.dataset.src;
+      });
+      const index = currentIndex();
+      const key = `${n}:${index}`;
+      if (panelKey !== key) {
+        panelKey = key;
+        const item = list[index];
+        countEl.innerHTML = `${index + 1} / ${n}<span class="sr-only">, ${escapeHtml(item.name)}</span>`;
+        bodyEl.innerHTML = renderPanel(item, index, n);
+        range.value = String(index);
+        range.setAttribute("aria-valuetext", `${index + 1} of ${n}, ${item.name}`);
+      }
+    }
+
+    function animateTo(targetIndex) {
+      const n = list.length;
+      if (!n) return;
+      cancelAnimationFrame(raf);
+      const normalized = ((targetIndex % n) + n) % n;
+      const change = wrapDelta(normalized, position, n);
+      const from = position;
+      const duration = prefersReduce() ? 0 : 450;
+      const start = performance.now();
+      function frame(now) {
+        const t = duration === 0 ? 1 : Math.min(1, (now - start) / duration);
+        const eased = 1 - (1 - t) ** 3;
+        position = from + change * eased;
+        paint();
+        if (t < 1) raf = requestAnimationFrame(frame);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    function goTo(index, immediate) {
+      const n = list.length;
+      if (!n) return;
+      if (immediate || prefersReduce()) {
+        cancelAnimationFrame(raf);
+        position = ((index % n) + n) % n;
+        paint();
+        return;
+      }
+      animateTo(index);
+    }
+
+    function setItems(next) {
+      list = next.slice();
+      position = 0;
+      renderFrames();
+      paint();
+    }
+
+    function setPageInert(on) {
+      document.querySelectorAll("header, main, footer, .whatsapp-fab, .skip-link").forEach((el) => {
+        if (on) el.setAttribute("inert", "");
+        else el.removeAttribute("inert");
+      });
+    }
+
+    function closeFlood() {
+      if (flood.hidden) return;
+      flood.hidden = true;
+      document.body.classList.remove("ttl-flood-open");
+      setPageInert(false);
+      if (floodReturn && document.contains(floodReturn)) floodReturn.focus();
+      floodReturn = null;
+    }
+
+    function openFlood() {
+      if (!list.length) return;
+      floodTitle.textContent = title;
+      floodGrid.innerHTML = list
+        .map((item, i) => {
+          const src = item.image || item.flat;
+          return `<button type="button" class="ttl-flood-item" data-index="${i}">
+            <img src="${escapeHtml(src)}" alt="" width="480" height="480" decoding="async">
+            <span>${escapeHtml(item.name)}</span>
+          </button>`;
+        })
+        .join("");
+      floodReturn = document.activeElement;
+      flood.hidden = false;
+      document.body.classList.add("ttl-flood-open");
+      setPageInert(true);
+      flood.querySelector(".ttl-flood-close").focus();
+    }
+
+    function moveCursor(event) {
+      if (!cursor || !fine.matches || drag) {
+        if (cursor) cursor.hidden = true;
+        return;
+      }
+      const n = list.length;
+      if (!n) return;
+      const index = currentIndex();
+      const centre = track.querySelector(`[data-index="${index}"]`);
+      const hit = event.target.closest ? event.target.closest(".ttl-item") : null;
+      const show = hit === centre && Math.abs(wrapDelta(index, position, n)) < 0.45;
+      cursor.hidden = !show;
+      if (!show) return;
+      const rect = stage.getBoundingClientRect();
+      cursor.style.transform = `translate(${event.clientX - rect.left}px, ${event.clientY - rect.top}px) translate(-50%, -50%)`;
+    }
+
+    stage.addEventListener("pointerdown", (event) => {
+      if (event.button != null && event.button !== 0) return;
+      drag = {
+        id: event.pointerId,
+        x: event.clientX,
+        y: event.clientY,
+        pos: position,
+        lastX: event.clientX,
+        lastT: performance.now(),
+        v: 0,
+        active: false,
+      };
+      cancelAnimationFrame(raf);
+      if (cursor) cursor.hidden = true;
+    });
+
+    stage.addEventListener("pointermove", (event) => {
+      if (!drag || event.pointerId !== drag.id) {
+        moveCursor(event);
+        return;
+      }
+      const dx = event.clientX - drag.x;
+      const dy = event.clientY - drag.y;
+      if (!drag.active) {
+        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        if (Math.abs(dy) > Math.abs(dx)) {
+          drag = null;
+          return;
+        }
+        drag.active = true;
+        stage.setPointerCapture(event.pointerId);
+        stage.classList.add("is-dragging");
+      }
+      const now = performance.now();
+      const dt = Math.max(16, now - drag.lastT);
+      drag.v = (drag.lastX - event.clientX) / dt / stageStep();
+      drag.lastX = event.clientX;
+      drag.lastT = now;
+      position = drag.pos + (drag.x - event.clientX) / stageStep();
+      paint();
+    });
+
+    function endDrag(event) {
+      if (!drag || (event && event.pointerId !== drag.id)) return;
+      const active = drag.active;
+      const velocity = drag.v;
+      drag = null;
+      stage.classList.remove("is-dragging");
+      if (!active) {
+        const fig = event && event.target.closest ? event.target.closest(".ttl-item") : null;
+        if (!fig) return;
+        const d = wrapDelta(Number(fig.dataset.index), position, list.length);
+        if (Math.abs(d) > 0.35) animateTo(Number(fig.dataset.index));
+        return;
+      }
+      animateTo(Math.round(position + velocity * 160));
+    }
+
+    stage.addEventListener("pointerup", endDrag);
+    stage.addEventListener("pointercancel", endDrag);
+    stage.addEventListener("pointerleave", () => {
+      if (cursor) cursor.hidden = true;
+    });
+    stage.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        animateTo(Math.round(position) + 1);
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        animateTo(Math.round(position) - 1);
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        animateTo(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        animateTo(list.length - 1);
+      }
+    });
+    range.addEventListener("input", () => {
+      cancelAnimationFrame(raf);
+      position = Number(range.value);
+      paint();
+    });
+    viewAll.addEventListener("click", openFlood);
+    flood.addEventListener("click", (event) => {
+      if (event.target.closest("[data-ttl-close]")) closeFlood();
+    });
+    floodGrid.addEventListener("click", (event) => {
+      const btn = event.target.closest(".ttl-flood-item");
+      if (!btn) return;
+      const index = Number(btn.dataset.index);
+      closeFlood();
+      goTo(index);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (flood.hidden || event.key !== "Escape") return;
+      event.preventDefault();
+      closeFlood();
+    });
+    flood.addEventListener("keydown", (event) => {
+      if (event.key !== "Tab") return;
+      const focusable = [...floodPanel.querySelectorAll("button")].filter((el) => !el.disabled);
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+    window.addEventListener("resize", paint);
+    narrow.addEventListener("change", paint);
+
+    renderFrames();
+    paint();
+    stage.setAttribute("aria-label", `${noun}. Drag, or use the arrow keys.`);
+    return { setItems, goTo };
+  }
+
+  function initTracksuitLooks(root) {
     const data = window.GARMENTS_DATA;
     if (!root || !data?.tracksuits?.length) return;
-    const ways = data.tracksuits;
-    const nameEl = root.querySelector(".tracksuit-name");
-    const noteEl = root.querySelector(".tracksuit-note");
-    const rail = root.querySelector(".swatch-rail");
-    const caption = root.querySelector(".tracksuit-flat-caption");
-    const brandLink = root.querySelector(".own-brand");
-    if (brandLink && config.googleFormUrl) {
-      brandLink.href = config.googleFormUrl;
-      brandLink.target = "_blank";
-      brandLink.rel = "noopener noreferrer";
-    }
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let index = 0;
-
-    rail.innerHTML = ways
-      .map(
-        (way, i) => `
-        <button type="button" class="swatch${i === 0 ? " is-active" : ""}" role="option" aria-selected="${i === 0 ? "true" : "false"}" tabindex="${i === 0 ? "0" : "-1"}" data-index="${i}">
-          <span class="swatch-chip" style="--swatch-a:${way.colors.body};--swatch-b:${way.colors.chest};--swatch-c:${way.colors.stripe}"></span>
-          <span class="swatch-label">${escapeHtml(way.name)}</span>
-        </button>`
-      )
-      .join("");
-
-    function crossfade(way) {
-      const imgs = [...root.querySelectorAll(".tracksuit-flat-img")];
-      const current = imgs.find((img) => img.classList.contains("is-active")) || imgs[0];
-      const next = imgs.find((img) => img !== current) || imgs[0];
-      const alt = `${way.name} tracksuit`;
-      if (!current.getAttribute("src") || current.getAttribute("src") === way.flat) {
-        current.src = way.flat;
-        current.alt = alt;
-        current.classList.add("is-active");
-        next.classList.remove("is-active");
-        if (caption) caption.textContent = way.name;
-        return;
-      }
-      next.alt = alt;
-      const reveal = () => {
-        next.classList.add("is-active");
-        current.classList.remove("is-active");
-        if (caption) caption.textContent = way.name;
-      };
-      if (reduce) {
-        next.src = way.flat;
-        reveal();
-        return;
-      }
-      next.onload = reveal;
-      next.src = way.flat;
-      if (next.complete) reveal();
-    }
-
-    function select(nextIndex) {
-      index = (nextIndex + ways.length) % ways.length;
-      const way = ways[index];
-      if (nameEl) nameEl.textContent = way.name;
-      if (noteEl) noteEl.textContent = way.note;
-      rail.querySelectorAll(".swatch").forEach((btn, i) => {
-        const on = i === index;
-        btn.classList.toggle("is-active", on);
-        btn.setAttribute("aria-selected", on ? "true" : "false");
-        btn.tabIndex = on ? 0 : -1;
-      });
-      crossfade(way);
-    }
-
-    rail.querySelectorAll(".swatch").forEach((btn) => {
-      btn.addEventListener("click", () => select(Number(btn.dataset.index) || 0));
-    });
-    rail.addEventListener("keydown", (event) => {
-      const options = [...rail.querySelectorAll(".swatch")];
-      const current = options.indexOf(document.activeElement);
-      if (current < 0) return;
-      let next = current;
-      if (event.key === "ArrowRight" || event.key === "ArrowDown") next = (current + 1) % options.length;
-      else if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = (current - 1 + options.length) % options.length;
-      else if (event.key === "Home") next = 0;
-      else if (event.key === "End") next = options.length - 1;
-      else return;
-      event.preventDefault();
-      select(next);
-      options[next].focus();
-    });
-    select(0);
+    initLookCarousel(root, data.tracksuits, renderTracksuitPanel);
   }
 
   function initComboRotator(root) {
@@ -669,10 +987,10 @@
         }
       }
       if (nameEl) nameEl.textContent = combo.name;
-      if (pillsEl) pillsEl.innerHTML = combo.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
-      if (boxEl) {
-        boxEl.textContent = `${combo.name} packs ${combo.items.join(", ")}.`;
-      }
+      const packed = combo.items.filter((item) => item !== "Customized box");
+      const hasBox = packed.length !== combo.items.length;
+      if (pillsEl) pillsEl.innerHTML = packed.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+      if (boxEl) boxEl.textContent = hasBox ? "Packed in a customized box." : "Supplied as a single piece.";
       if (countEl) countEl.textContent = `${index + 1} / ${list.length}`;
       paintQueue(list);
     }
@@ -684,6 +1002,7 @@
         const combo = list[(index + 1 + offset) % list.length];
         return `<button type="button" class="combo-queue-item" data-offset="${offset + 1}" tabindex="${offset === 0 ? "0" : "-1"}" aria-label="Show ${escapeHtml(combo.name)}">
           <img src="${escapeHtml(combo.image)}" alt="" width="240" height="240" decoding="async">
+          <span class="combo-queue-name">${escapeHtml(combo.name)}</span>
         </button>`;
       }).join("");
     }
@@ -926,16 +1245,11 @@
       { id: "apparel", label: "Apparel" },
       { id: "gift", label: "Gift sets" },
     ];
-    const categoryLabels = Object.fromEntries(filters.map((item) => [item.id, item.label]));
     const filterRow = root.querySelector(".souvenir-filters");
-    const grid = root.querySelector(".souvenir-grid");
     const countEl = root.querySelector(".souvenir-count");
+    const carousel = initLookCarousel(root.querySelector("[data-look-carousel]"), items, renderSouvenirPanel);
+    if (!carousel || !filterRow) return;
     let filter = "all";
-    let dialogReturn = null;
-
-    function pills(list, className) {
-      return `<ul class="${className}">${(list || []).map((label) => `<li>${escapeHtml(label)}</li>`).join("")}</ul>`;
-    }
 
     filterRow.innerHTML = filters
       .map(
@@ -943,69 +1257,6 @@
           `<button type="button" class="souvenir-filter${i === 0 ? " is-active" : ""}" role="tab" tabindex="${i === 0 ? "0" : "-1"}" aria-selected="${i === 0 ? "true" : "false"}" data-filter="${item.id}">${item.label}</button>`
       )
       .join("");
-
-    grid.innerHTML = items
-      .map(
-        (item, i) => `
-        <button type="button" class="souvenir-card" id="souvenir-${escapeHtml(item.id)}" role="listitem" data-id="${escapeHtml(item.id)}" data-category="${escapeHtml(item.category)}" tabindex="${i === 0 ? "0" : "-1"}">
-          <span class="souvenir-card-photo">
-            <img src="${escapeHtml(item.image)}" alt="" width="800" height="800" decoding="async">
-          </span>
-          <span class="souvenir-card-body">
-            <span class="souvenir-card-title">${escapeHtml(item.name)}</span>
-            ${pills(item.specs, "feature-pills")}
-            <span class="souvenir-card-summary">${escapeHtml(item.summary)}</span>
-            ${pills(item.labels, "souvenir-labels")}
-          </span>
-        </button>`
-      )
-      .join("");
-
-    const dialog = document.createElement("div");
-    dialog.className = "souvenir-dialog";
-    dialog.id = "souvenir-dialog";
-    dialog.hidden = true;
-    dialog.innerHTML = `
-      <div class="souvenir-dialog-backdrop" data-souvenir-close></div>
-      <div class="souvenir-dialog-panel" role="dialog" aria-modal="true" aria-labelledby="souvenir-dialog-title">
-        <button type="button" class="souvenir-dialog-close" data-souvenir-close aria-label="Close souvenir details">&times;</button>
-        <img class="souvenir-dialog-image" alt="">
-        <div class="souvenir-dialog-copy">
-          <p class="souvenir-dialog-kicker"></p>
-          <h3 id="souvenir-dialog-title"></h3>
-          <ul class="feature-pills souvenir-dialog-specs"></ul>
-          <p class="souvenir-dialog-summary"></p>
-          <ul class="souvenir-labels"></ul>
-          <a class="btn btn-primary" href="contact.html">Ask about this souvenir</a>
-        </div>
-      </div>`;
-    document.body.appendChild(dialog);
-    const panel = dialog.querySelector(".souvenir-dialog-panel");
-
-    function visibleCards() {
-      return [...grid.querySelectorAll(".souvenir-card")].filter((card) => !card.hidden);
-    }
-
-    function columnCount() {
-      const cards = visibleCards();
-      if (cards.length < 2) return 1;
-      const top = cards[0].getBoundingClientRect().top;
-      let count = 1;
-      for (let i = 1; i < cards.length; i += 1) {
-        if (Math.abs(cards[i].getBoundingClientRect().top - top) > 8) break;
-        count += 1;
-      }
-      return count;
-    }
-
-    function focusCard(card, { scroll = true } = {}) {
-      if (!card) return;
-      visibleCards().forEach((el) => {
-        el.tabIndex = el === card ? 0 : -1;
-      });
-      card.focus({ preventScroll: true });
-      if (scroll) card.scrollIntoView({ block: "nearest", inline: "nearest" });
-    }
 
     function applyFilter(nextFilter) {
       filter = nextFilter;
@@ -1015,102 +1266,23 @@
         el.setAttribute("aria-selected", on ? "true" : "false");
         el.tabIndex = on ? 0 : -1;
       });
-      grid.querySelectorAll(".souvenir-card").forEach((card) => {
-        card.hidden = filter !== "all" && card.dataset.category !== filter;
-        card.tabIndex = -1;
-      });
-      const cards = visibleCards();
-      if (cards[0]) cards[0].tabIndex = 0;
-      if (countEl) countEl.textContent = `Showing ${cards.length} of ${items.length} souvenirs`;
-      if (grid.contains(document.activeElement) && document.activeElement.hidden) {
-        focusCard(cards[0]);
-      }
-    }
-
-    function setPageInert(on) {
-      document.querySelectorAll("header, main, footer, .whatsapp-fab, .skip-link").forEach((el) => {
-        if (on) el.setAttribute("inert", "");
-        else el.removeAttribute("inert");
-      });
-    }
-
-    function closeDialog() {
-      if (dialog.hidden) return;
-      dialog.hidden = true;
-      document.body.classList.remove("souvenir-dialog-open");
-      setPageInert(false);
-      if (dialogReturn && document.contains(dialogReturn)) dialogReturn.focus();
-      dialogReturn = null;
-    }
-
-    function openDialog(id) {
-      const item = items.find((entry) => entry.id === id);
-      if (!item) return;
-      dialogReturn = document.activeElement;
-      dialog.querySelector(".souvenir-dialog-image").src = item.image;
-      dialog.querySelector(".souvenir-dialog-image").alt = "";
-      dialog.querySelector(".souvenir-dialog-kicker").textContent = categoryLabels[item.category] || "Souvenir";
-      dialog.querySelector("#souvenir-dialog-title").textContent = item.name;
-      dialog.querySelector(".souvenir-dialog-specs").innerHTML = (item.specs || [])
-        .map((label) => `<li>${escapeHtml(label)}</li>`)
-        .join("");
-      dialog.querySelector(".souvenir-dialog-summary").textContent = item.summary;
-      dialog.querySelector(".souvenir-dialog-copy .souvenir-labels").innerHTML = item.labels
-        .map((label) => `<li>${escapeHtml(label)}</li>`)
-        .join("");
-      dialog.hidden = false;
-      document.body.classList.add("souvenir-dialog-open");
-      setPageInert(true);
-      dialog.querySelector(".souvenir-dialog-close").focus();
+      const list = filter === "all" ? items : items.filter((item) => item.category === filter);
+      carousel.setItems(list);
+      if (countEl) countEl.textContent = `Showing ${list.length} of ${items.length} souvenirs`;
     }
 
     filterRow.querySelectorAll(".souvenir-filter").forEach((btn) => {
       btn.addEventListener("click", () => applyFilter(btn.dataset.filter));
     });
     bindRovingTabs(filterRow, ".souvenir-filter");
-    grid.querySelectorAll(".souvenir-card").forEach((card) => {
-      card.addEventListener("click", () => openDialog(card.dataset.id));
-    });
-    grid.addEventListener("keydown", (event) => {
-      const cards = visibleCards();
-      const current = cards.indexOf(document.activeElement);
-      if (current < 0) return;
-      const cols = columnCount();
-      let next = current;
-      if (event.key === "ArrowRight") next = Math.min(cards.length - 1, current + 1);
-      else if (event.key === "ArrowLeft") next = Math.max(0, current - 1);
-      else if (event.key === "ArrowDown") next = Math.min(cards.length - 1, current + cols);
-      else if (event.key === "ArrowUp") next = Math.max(0, current - cols);
-      else if (event.key === "Home") next = 0;
-      else if (event.key === "End") next = cards.length - 1;
-      else return;
-      if (next === current) return;
-      event.preventDefault();
-      focusCard(cards[next]);
-    });
-    dialog.querySelectorAll("[data-souvenir-close]").forEach((el) => {
-      el.addEventListener("click", closeDialog);
-    });
-    dialog.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        closeDialog();
-        return;
-      }
-      if (event.key !== "Tab") return;
-      const focusable = [...panel.querySelectorAll("button, a[href]")].filter((el) => !el.disabled);
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    });
     applyFilter("all");
+
+    const hash = (window.location.hash || "").replace(/^#/, "");
+    if (hash.startsWith("souvenir-")) {
+      const id = hash.slice("souvenir-".length);
+      const index = items.findIndex((item) => item.id === id);
+      if (index >= 0) carousel.goTo(index, true);
+    }
   }
 
   function initServiceReadMore(root) {
